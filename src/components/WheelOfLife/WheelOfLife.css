@@ -1,0 +1,57 @@
+.wheel-of-life {
+  width: 100%;
+  max-width: 500px;
+  height: 50vh;
+  font-size: 1.8em;
+}
+
+.wheel-of-life_type_stat {
+  height: 50vh;
+  width: 39.0625vw;
+  font-size: 1.6em;
+}
+
+
+@media (max-width: 991px) {
+  .wheel-of-life {
+    height: 45vh;
+    font-size: 1.6em;
+  }
+
+  .wheel-of-life_type_stat {
+    height: 33vh;
+    width: 95vw;
+  }
+}
+
+@media (max-width: 820px) {
+  .wheel-of-life_type_stat {
+    height: 30vh;
+    width: 95vw;
+  }
+}
+
+/* @media (max-width: 540px) {
+  .wheel-of-life {
+    font-size: 1.4em;
+  }
+} */
+
+@media (max-width: 540px) {
+  .wheel-of-life {
+    /* height: 400px; */
+    max-width: 400px;
+    font-size: 1em;
+  }
+
+  .wheel-of-life_type_stat {
+    height: 30vh;
+  }
+}
+
+@media (max-width: 360px) {
+  .wheel-of-life {
+    /* height: 310px; */
+    max-width: 310px;
+  }
+}

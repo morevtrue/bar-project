@@ -1,0 +1,292 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile__content-sos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  gap: 20px;
+}
+
+.profile__button-text {
+  font-size: 1.6em;
+  font-weight: 500;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.profile__button-sos {
+  border: none;
+  background: url(../../images/icon-sos.png) no-repeat center / cover;
+  width: 100%;
+  max-width: 200px;
+  min-height: 200px;
+  opacity: .7;
+  transition: opacity .5s linear;
+}
+
+.profile__button-sos:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.profile__form {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 20px 0 0;
+  width: 100%;
+  max-width: 400px;
+}
+
+.profile__form-title {
+  font-size: 2.2em;
+  line-height: 1;
+  font-weight: 500;
+  text-align: center;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.profile__form-label,
+.profile__form-legend,
+.profile__form-text-gender {
+  font-size: 1.7em;
+  line-height: 1;
+  font-weight: 500;
+  margin: 10px 0 5px;
+  padding: 0;
+}
+
+.profile__form-fieldset {
+  display: flex;
+  gap: 30px;
+  padding: 10px 0 0;
+}
+
+.profile__form-fieldset .profile__form-label {
+  margin: 10px 0;
+}
+
+.profile__form-gender {
+  display: flex;
+  gap: 5px;
+}
+
+.profile__form-input {
+  font-size: 1.6em;
+  line-height: 1;
+  font-weight: 500;
+  margin: 0;
+  padding: 7px;
+  border-radius: 10px;
+  border: 1px solid rgba(180, 180, 180, 1);
+  background-color: rgba(240, 240, 240, 1);
+  display: flex;
+}
+
+.profile__button {
+  font-size: 1.8em;
+  line-height: 1;
+  font-weight: 500;
+  margin: 0 0 15px;
+  padding: 13px 0;
+  color: rgba(255, 255, 255, 1);
+  background-color: #19b2e6;
+  border: none;
+  border-radius: 10px;
+}
+
+.profile__button:first-of-type {
+  margin-top: 30px;
+}
+
+.profile__button:last-of-type {
+  margin-bottom: 0;
+}
+
+.profile__button_type_exit {
+  background-color: rgb(177, 16, 16);
+}
+
+@media (max-width: 768px) {
+  .profile__content-sos {
+    margin: 30px 0;
+    gap: 15px;
+  }
+
+  .profile__button-text {
+    font-size: 1.6em;
+  }
+
+  .profile__button-sos {
+    max-width: 200px;
+    min-height: 200px;
+  }
+
+  .profile__form {
+    margin: 0;
+  }
+
+  .profile__form-title {
+    font-size: 2.4em;
+    margin: 0 0 5px;
+  }
+
+  .profile__form-label,
+  .profile__form-legend,
+  .profile__form-text-gender {
+    font-size: 1.7em;
+    margin: 15px 0;
+  }
+
+  .profile__form-fieldset .profile__form-label {
+    margin: 15px 0;
+  }
+
+  .profile__form-fieldset {
+    padding: 8px 0 0;
+  }
+
+  .profile__form-input {
+    font-size: 1.6em;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 540px) {
+  .profile__content-sos {
+    margin: 20px 0 5px;
+    gap: 20px;
+  }
+
+  .profile__button-text {
+    font-size: 1.4em;
+  }
+
+  .profile__button-sos {
+    max-width: 150px;
+    min-height: 150px;
+  }
+
+  .profile__form {
+    margin: 20px 0 0;
+    max-width: 320px;
+  }
+
+  .profile__form-title {
+    font-size: 2em;
+    margin: 0;
+  }
+
+  .profile__form-label,
+  .profile__form-legend,
+  .profile__form-text-gender {
+    font-size: 1.5em;
+    margin: 15px 0 10px;
+  }
+
+  .profile__form-fieldset .profile__form-label {
+    margin: 15px 10px;
+  }
+
+  .profile__form-fieldset {
+    gap: 25px;
+    padding: 8px 0 0;
+  }
+
+  .profile__form-gender {
+    gap: 5px;
+  }
+
+  .profile__form-input {
+    font-size: 1.4em;
+    padding: 7px;
+  }
+
+  .profile__button {
+    font-size: 1.4em;
+    margin: 0 0 10px;
+  }
+
+  .profile__button:first-of-type {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .profile__content-sos {
+    margin: 15px 0 5px;
+    gap: 15px;
+  }
+
+  .profile__button-text {
+    font-size: 1.2em;
+    width: 100%;
+    max-width: 310px;
+    text-align: center;
+  }
+
+  .profile__button-sos {
+    max-width: 130px;
+    min-height: 130px;
+  }
+
+  .profile__form {
+    margin: 10px 0 0;
+    max-width: 250px;
+  }
+
+  .profile__form-title {
+    font-size: 1.8em;
+    margin: 0;
+  }
+
+  .profile__form-label,
+  .profile__form-legend,
+  .profile__form-text-gender {
+    font-size: 1.4em;
+    margin: 7px 0;
+  }
+
+  .profile__form-fieldset .profile__form-label {
+    margin: 7px 0;
+  }
+
+  .profile__form-fieldset {
+    gap: 25px;
+    padding: 8px 0 0;
+  }
+
+  .profile__form-gender {
+    gap: 5px;
+  }
+
+  .profile__form-input {
+    font-size: 1.2em;
+    padding: 5px 7px;
+  }
+
+  .profile__button {
+    font-size: 1.3em;
+    margin: 0 0 10px;
+    padding: 10px 0;
+  }
+
+  .profile__button:first-of-type {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 320px) {
+  .profile__button-text {
+    max-width: 260px;
+  }
+}

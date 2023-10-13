@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 30px;
+  width: 80vw;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.header__logo {
+  width: 8em;
+  object-fit: cover;
+  margin: 1em 0 0;
+}
+
+@media (max-width: 821px) {
+  .header {
+    justify-content: center;
+  }
+
+  .header__logo {
+    display: none;
+    margin: 2em 0;
+  }
+
+  .header__logo_type_active {
+    display: block;
+  }
+}
+
+@media (max-width: 540px) {
+  .header__logo {
+    width: 6em;
+    margin: 1em 0;
+  }
+}

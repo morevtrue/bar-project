@@ -1,0 +1,15 @@
+.footer {
+  display: none;
+}
+
+@media (max-width: 821px) {
+  .footer {
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 100%;
+    /* position: fixed;
+    bottom: 0; */
+    z-index: 200;
+  }
+}
