@@ -17,7 +17,7 @@ function App() {
   const [panic, setPanic] = useState(1);
   const [despondency, setDespondency] = useState(1);
   const [depression, setDepression] = useState(1);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   // const $irritabillityStore = createStore(0);
   // const irritabillityValue = createEvent();
@@ -93,6 +93,14 @@ function App() {
               setDepression={setDepression}
               setPanic={setPanic}
             />
+          }
+        />
+        <Route
+          path="*"
+          element={
+            isLoggedIn
+              ? <Navigate to="/" replace />
+              : <Navigate to="/sign-in" replace />
           }
         />
       </Routes>
