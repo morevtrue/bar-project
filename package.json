@@ -1,7 +1,7 @@
 {
   "name": "bar-project",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@amcharts/amcharts5": "^5.4.8",
     "@testing-library/jest-dom": "^5.17.0",
