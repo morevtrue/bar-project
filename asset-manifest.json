@@ -1,21 +1,24 @@
 {
-  "main.css": "/bar-project/static/css/main.88b6e2b0.chunk.css",
-  "main.js": "/bar-project/static/js/main.d0838bc4.chunk.js",
-  "main.js.map": "/bar-project/static/js/main.d0838bc4.chunk.js.map",
-  "static/js/1.ba691aeb.chunk.js": "/bar-project/static/js/1.ba691aeb.chunk.js",
-  "static/js/1.ba691aeb.chunk.js.map": "/bar-project/static/js/1.ba691aeb.chunk.js.map",
-  "static/css/2.2d3b2efd.chunk.css": "/bar-project/static/css/2.2d3b2efd.chunk.css",
-  "static/js/2.7a197f4e.chunk.js": "/bar-project/static/js/2.7a197f4e.chunk.js",
-  "static/js/2.7a197f4e.chunk.js.map": "/bar-project/static/js/2.7a197f4e.chunk.js.map",
-  "runtime~main.js": "/bar-project/static/js/runtime~main.582be046.js",
-  "runtime~main.js.map": "/bar-project/static/js/runtime~main.582be046.js.map",
-  "static/media/logo.jpg": "/bar-project/static/media/logo.4db110de.jpg",
-  "static/media/App.css": "/bar-project/static/media/Inter-Medium.c0638bea.woff",
-  "static/media/Profile.css": "/bar-project/static/media/icon-sos.01ab37fd.png",
-  "static/media/Char.css": "/bar-project/static/media/icon-info.834cded7.svg",
-  "static/css/main.88b6e2b0.chunk.css.map": "/bar-project/static/css/main.88b6e2b0.chunk.css.map",
-  "static/css/2.2d3b2efd.chunk.css.map": "/bar-project/static/css/2.2d3b2efd.chunk.css.map",
-  "index.html": "/bar-project/index.html",
-  "precache-manifest.647a1f8655f585d9ee90d9be5ea94cf9.js": "/bar-project/precache-manifest.647a1f8655f585d9ee90d9be5ea94cf9.js",
-  "service-worker.js": "/bar-project/service-worker.js"
+  "files": {
+    "main.css": "/bar-project/static/css/main.716ee218.css",
+    "main.js": "/bar-project/static/js/main.3caf030f.js",
+    "static/js/787.341c063d.chunk.js": "/bar-project/static/js/787.341c063d.chunk.js",
+    "static/media/Inter-Medium.woff": "/bar-project/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff": "/bar-project/static/media/Inter-Black.c6938660eec019fefd68.woff",
+    "static/media/Inter-Regular.woff": "/bar-project/static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-Medium.woff2": "/bar-project/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2": "/bar-project/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2": "/bar-project/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/icon-sos.png": "/bar-project/static/media/icon-sos.cdb9b4f09a3c762521ef.png",
+    "static/media/logo.jpg": "/bar-project/static/media/logo.f0698676ffdf31792436.jpg",
+    "index.html": "/bar-project/index.html",
+    "static/media/icon-info.svg": "/bar-project/static/media/icon-info.fba17fa6bd149a1a5259.svg",
+    "main.716ee218.css.map": "/bar-project/static/css/main.716ee218.css.map",
+    "main.3caf030f.js.map": "/bar-project/static/js/main.3caf030f.js.map",
+    "787.341c063d.chunk.js.map": "/bar-project/static/js/787.341c063d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.716ee218.css",
+    "static/js/main.3caf030f.js"
+  ]
 }
