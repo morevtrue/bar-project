@@ -17,7 +17,7 @@ function App() {
   const [panic, setPanic] = useState(1);
   const [despondency, setDespondency] = useState(1);
   const [depression, setDepression] = useState(1);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // const $irritabillityStore = createStore(0);
   // const irritabillityValue = createEvent();
