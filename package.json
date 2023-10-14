@@ -1,7 +1,7 @@
 {
   "name": "bar-project",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "dependencies": {
     "@amcharts/amcharts5": "^5.4.8",
     "@testing-library/jest-dom": "^5.17.0",
@@ -48,5 +48,5 @@
   "devDependencies": {
     "gh-pages": "^6.0.0"
   },
-  "homepage": "https://morevtrue.github.io/bar-project/"
+  "homepage": "https://morevtrue.github.io/"
 }
