@@ -10,12 +10,12 @@
   "runtime~main.js": "/static/js/runtime~main.3930d41c.js",
   "runtime~main.js.map": "/static/js/runtime~main.3930d41c.js.map",
   "static/media/logo.jpg": "/static/media/logo.4db110de.jpg",
-  "static/media/App.css": "/static/media/Inter-Black.661569af.woff2",
+  "static/media/App.css": "/static/media/Inter-Black.d0b121f3.woff",
   "static/media/Profile.css": "/static/media/icon-sos.01ab37fd.png",
   "static/media/Char.css": "/static/media/icon-info.834cded7.svg",
   "static/css/main.b85e0198.chunk.css.map": "/static/css/main.b85e0198.chunk.css.map",
   "static/css/2.2d3b2efd.chunk.css.map": "/static/css/2.2d3b2efd.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.a2ad24825ecc8984c896f6514ef1a7fc.js": "/precache-manifest.a2ad24825ecc8984c896f6514ef1a7fc.js",
+  "precache-manifest.8f17663df591d23759b5d55dcb35bb5b.js": "/precache-manifest.8f17663df591d23759b5d55dcb35bb5b.js",
   "service-worker.js": "/service-worker.js"
 }
