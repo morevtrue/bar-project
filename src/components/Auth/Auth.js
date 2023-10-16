@@ -29,11 +29,8 @@ function Auth(props) {
             </ul>
           </div>
           <div className="auth__form-content-button">
-            {/* Сделал заглушку для верстки */}
             <button className="auth__form-button">
-              <Link to="/" className="auth__bug">
-                {props.buttonText}
-              </Link>
+              {props.buttonText}
             </button>
             <div className="auth__form-text-content">
               <p className="auth__form-text">{props.authText}</p>
