@@ -1,6 +1,6 @@
 import React from "react";
 import './Header.css';
-import logo from '../../images/logo.jpg';
+import logo from '../../images/logo.png';
 import Navigation from "../Navigation/Navigation";
 
 function Header(props) {

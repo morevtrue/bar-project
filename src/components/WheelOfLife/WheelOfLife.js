@@ -1,12 +1,13 @@
-import React, { useRef, useLayoutEffect } from "react";
+import React from "react";
 import './WheelOfLife.css';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import * as am5radar from '@amcharts/amcharts5/radar';
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import { useEffect } from "react";
 
 function WheelOfLife(props) {
-  useLayoutEffect(() => {
+  useEffect(() => {
     let root = am5.Root.new("chartdiv");
 
     root.setThemes([
@@ -60,37 +61,37 @@ function WheelOfLife(props) {
       category: "Раздражительность",
       value: props.irritabillity,
       columnSettings: {
-        fill: chart.get("colors").next()
+        fill: "#024669"
       }
     }, {
       category: "Мания",
       value: props.mania,
       columnSettings: {
-        fill: chart.get("colors").next()
+        fill: "#035d8f"
       }
     }, {
       category: "Тревожность",
       value: props.anxiety,
       columnSettings: {
-        fill: chart.get("colors").next()
+        fill: "#5196b7"
       }
     }, {
       category: "Паника",
       value: props.panic,
       columnSettings: {
-        fill: chart.get("colors").next()
+        fill: "#68b3da"
       }
     }, {
       category: "Уныние",
       value: props.despondency,
       columnSettings: {
-        fill: chart.get("colors").next()
+        fill: "#aed3e5"
       }
     }, {
       category: "Депрессия",
       value: props.depression,
       columnSettings: {
-        fill: chart.get("colors").next()
+        fill: "#dbeaf1"
       }
     }];
 
@@ -103,7 +104,7 @@ function WheelOfLife(props) {
     return () => {
       root.dispose();
     }
-  }, [])
+  })
 
   return (
     <div id="chartdiv" className={`wheel-of-life ${props.isStat ? 'wheel-of-life_type_stat' : ''}`}></div>

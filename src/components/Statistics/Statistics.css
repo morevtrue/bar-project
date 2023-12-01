@@ -27,11 +27,14 @@
   height: 32px;
   margin: 0;
   padding: 0;
+  opacity: 1;
+  transition: opacity .5s linear
 }
 
 .statistics__month-latest:hover,
 .statistics__month-next:hover {
   cursor: pointer;
+  opacity: .7;
 }
 
 .statistics__month-next {

@@ -1,0 +1,3 @@
+const IRRITABILLITY = "IRRITABILLITY";
+
+export default IRRITABILLITY;

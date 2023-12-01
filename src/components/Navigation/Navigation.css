@@ -25,6 +25,12 @@
   font-size: 1.9em;
   line-height: 1;
   text-decoration: none;
+  opacity: 1;
+  transition: opacity .5s linear;
+}
+
+.navigation__menu-link:hover {
+  opacity: .7;
 }
 
 .navigation__menu-link_type_active {
@@ -50,7 +56,7 @@
   }
 
   .navigation__menu-links {
-    margin-bottom: 0;
+    margin: 0;
     display: flex;
     justify-content: space-evenly;
     width: 100%;

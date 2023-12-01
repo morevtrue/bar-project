@@ -90,6 +90,24 @@
   border: 1px solid rgba(180, 180, 180, 1);
   background-color: rgba(240, 240, 240, 1);
   display: flex;
+  color: rgba(49, 49, 49, 1);
+}
+
+.PhoneInputInput {
+  background-color: rgba(240, 240, 240, 1);
+  border: none;
+}
+
+.profile__form-gender:hover {
+  cursor: pointer;
+}
+
+.profile__form input::-moz-placeholder {
+  color: rgba(49, 49, 49, .6);
+}
+
+.profile__form input::-webkit-input-placeholder {
+  color: rgba(49, 49, 49, .6);
 }
 
 .profile__button {
@@ -102,6 +120,13 @@
   background-color: #19b2e6;
   border: none;
   border-radius: 10px;
+  opacity: 1;
+  transition: opacity .5s linear;
+}
+
+.profile__button:hover {
+  cursor: pointer;
+  opacity: .7;
 }
 
 .profile__button:first-of-type {
@@ -110,6 +135,15 @@
 
 .profile__button:last-of-type {
   margin-bottom: 0;
+}
+
+.profile__button_type_active {
+  background-color: darkgrey;
+}
+
+.profile__button_type_active:hover {
+  opacity: 1;
+  cursor: default;
 }
 
 .profile__button_type_exit {

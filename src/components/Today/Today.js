@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import './Today.css';
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -7,7 +7,6 @@ import { infoData } from "../../utils/constants";
 import { date } from "../../utils/constants";
 
 function Today(props) {
-
 
   return (
     <>
@@ -18,21 +17,16 @@ function Today(props) {
         {
           infoData.map(card => (
             <Char
-              // handleClickIrritabillity={props.handleClickIrritabillity}
-
-              // irritabillityValue={props.irritabillityValue}
+              name={card.name}
               text={card.text}
+              info={card}
               title={card.title}
               key={card.id}
               card={card}
-              setIrritabillity={props.setIrritabillity}
-              setMania={props.setMania}
-              setAnxiety={props.setAnxiety}
-              setDespondency={props.setDespondency}
-              setDepression={props.setDepression}
-              setPanic={props.setPanic}
-            // handleClick={handleClick}
-
+              emotionToday={props.emotionToday}
+              setEmotionToday={props.setEmotionToday}
+              isClosePopup={false}
+              onInfoClick={props.onInfoClick}
             />
           ))
         }

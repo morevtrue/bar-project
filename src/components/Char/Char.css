@@ -9,7 +9,7 @@
 .char__text-content {
   display: flex;
   align-items: center;
-  margin-bottom: 1em;
+  margin: 1em 0;
   position: relative;
 }
 
@@ -28,10 +28,13 @@
   width: 3em;
   padding: 0;
   margin: 0;
+  opacity: 1;
+  transition: opacity .5s linear;
 }
 
 .char__show-more-button:hover {
   cursor: pointer;
+  opacity: .7;
 }
 
 .char__buttons {
@@ -61,6 +64,7 @@
 
 .char__button_type_active {
   background-color: #19b2e6;
+  color: aliceblue;
 }
 
 .char__button:hover {

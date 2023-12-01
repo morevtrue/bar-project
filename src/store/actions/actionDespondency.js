@@ -1,0 +1,3 @@
+const DESPONDENCY = "DESPONDENCY";
+
+export default DESPONDENCY;

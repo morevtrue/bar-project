@@ -10,7 +10,7 @@
 }
 
 .header__logo {
-  width: 8em;
+  width: 4.5em;
   object-fit: cover;
   margin: 1em 0 0;
 }
@@ -32,7 +32,7 @@
 
 @media (max-width: 540px) {
   .header__logo {
-    width: 6em;
+    width: 4em;
     margin: 1em 0;
   }
 }

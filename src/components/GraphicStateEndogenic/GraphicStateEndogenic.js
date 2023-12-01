@@ -1,12 +1,15 @@
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import './GraphicStateEndogenic.css';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import am5locales_ru_RU from "@amcharts/amcharts5/locales/ru_RU";
 
 function GraphicStateEndogenic(props) {
-  useLayoutEffect(() => {
+  useEffect(() => {
     let root = am5.Root.new("chart-div-endogenic");
+
+    root.locale = am5locales_ru_RU;
 
     root.setThemes([
       am5themes_Animated.new(root)
@@ -24,23 +27,33 @@ function GraphicStateEndogenic(props) {
     }));
     cursor.lineY.set("visible", false);
 
-    let date = new Date();
+    let date = new Date(props.year, props.month, 0);
     date.setHours(0, 0, 0, 0);
-    let value = 5;
+    let value = 0;
 
-    function generateData() {
-      value = Math.round(value); //подсчет дневных значений
+    let arrCountEndogenic = new Array(31);
+
+    function generateData(count) {
       am5.time.add(date, "day", 1);
+
+      props.dayCountEndogenic.forEach((item, i) => {
+        if (Intl.DateTimeFormat('ru').format(item.date) === date.toLocaleDateString()) {
+          // return arrCount.push(item.count);
+          return arrCountEndogenic[count] = item.count;
+        }
+      })
+
+      value = arrCountEndogenic[count] === undefined ? 0 : arrCountEndogenic[count];
       return {
         date: date.getTime(),
-        value: value
+        value: value,
       };
     }
 
     function generateDatas(count) {
       let data = [];
-      for (let i = 0; i < count; ++i) {
-        data.push(generateData());
+      for (let i = 0; i < count; i++) {
+        data.push(generateData(i));
       }
       return data;
     }
@@ -56,6 +69,8 @@ function GraphicStateEndogenic(props) {
       }),
       tooltip: am5.Tooltip.new(root, {})
     }));
+
+    xAxis.get("dateFormats")["day"] = "dd";
 
     let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
       renderer: am5xy.AxisRendererY.new(root, {})
@@ -88,7 +103,7 @@ function GraphicStateEndogenic(props) {
     return () => {
       root.dispose();
     }
-  }, [])
+  }, [props.month, props.year, props.dayCountEndogenic])
 
   return (
     <div id="chart-div-endogenic"></div>

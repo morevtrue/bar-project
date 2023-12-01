@@ -19,11 +19,21 @@
   gap: 45px;
 }
 
-.auth__logo {
+.auth__content-logo {
   width: 100%;
-  max-width: 9em;
-  object-fit: cover;
+  max-width: 8em;
+  height: 8em;
+  background-color: azure;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth__logo {
+  object-fit: cover;
+  max-width: 5em;
+
 }
 
 .auth__form {
@@ -85,15 +95,29 @@
   border-bottom: 1px solid rgba(255, 255, 255, .5);
   background-color: inherit;
   transition: border-bottom .5s linear;
-  color: rgba(0, 0, 0, 1);
+  color: rgba(255, 255, 255, 1);
+}
+
+.auth__form-input-login-err {
+  visibility: hidden;
+  margin: 0 0 -13px;
+  padding: 0;
+  color: rgb(255, 2, 2);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.auth__form-input-login-err_type_active {
+  visibility: visible;
 }
 
 input::-moz-placeholder {
-  color: rgba(49, 49, 49, .6);
+  color: rgba(255, 255, 255, .6);
 }
 
 input::-webkit-input-placeholder {
-  color: rgba(49, 49, 49, .6);
+  color: rgba(255, 255, 255, .6);
 }
 
 .auth__form-input:hover {
@@ -118,6 +142,11 @@ input::-webkit-input-placeholder {
   font-weight: 500;
   margin: 0;
   padding: 0;
+  transition: background-color .2s linear;
+}
+
+.auth__form-button_type_disabled {
+  background-color: darkgray;
 }
 
 .auth__form-button:hover {
@@ -146,6 +175,16 @@ input::-webkit-input-placeholder {
   text-decoration: none;
 }
 
+.auth__form-password-error {
+  color: rgb(255, 230, 0);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.auth__form-password-error_type_active {
+  color: rgb(255, 2, 2);
+}
+
 @media (max-width: 540px) {
   .auth__content {
     max-width: 300px;
@@ -153,7 +192,7 @@ input::-webkit-input-placeholder {
   }
 
   .auth__logo {
-    max-width: 7em;
+    max-width: 5em;
   }
 
   .auth__form {

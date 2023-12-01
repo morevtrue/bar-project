@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
-import { createStore, combine, createEvent } from 'effector';
-import { useUnit } from 'effector-react';
 import './App.css';
 import Calendar from '../Calendar/Calendar';
 import Profile from '../Profile/Profile';
@@ -9,103 +7,382 @@ import Statistics from '../Statistics/Statistics';
 import Today from '../Today/Today';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import PopupInfo from '../PopupInfo/PopupInfo';
+import PopupLogout from '../PopupLogout/PopupLogout';
+import { api } from '../../utils/Api';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { date } from '../../utils/constants';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { connect } from 'react-redux';
+import actionCreatorIrritabillity from '../../store/actionCreators/actionCreatorIrritabillity';
+import actionCreatorMania from '../../store/actionCreators/actionCreatorMania';
+import actionCreatorAnxiety from '../../store/actionCreators/actionCreatorAnxiety';
+import actionCreatorPanic from '../../store/actionCreators/actionCreatorPanic';
+import actionCreatorDespondency from '../../store/actionCreators/actionCreatorDespondency';
+import actionCreatorDepression from '../../store/actionCreators/actionCreatorDepression';
+import actionCreatorEmotionList from '../../store/actionCreators/actionCreatorEmotionList';
+import actionCreatorLoggedIn from '../../store/actionCreators/actionCreatorLoggedIn';
+import { useCallback } from 'react';
 
-function App() {
-  const [irritabillity, setIrritabillity] = useState(1);
-  const [mania, setMania] = useState(1);
-  const [anxiety, setAnxiety] = useState(1);
-  const [panic, setPanic] = useState(1);
-  const [despondency, setDespondency] = useState(1);
-  const [depression, setDepression] = useState(1);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+function App(props) {
+  const {
+    value_irritabillity,
+    value_mania,
+    value_anxiety,
+    value_panic,
+    value_despondency,
+    value_depression,
+    value_loggedIn,
+    actionCreatorIrritabillity,
+    actionCreatorMania,
+    actionCreatorAnxiety,
+    actionCreatorPanic,
+    actionCreatorDespondency,
+    actionCreatorDepression,
+    actionCreatorEmotionList,
+    actionCreatorLoggedIn,
+  } = props;
 
-  // const $irritabillityStore = createStore(0);
-  // const irritabillityValue = createEvent();
+  const [currentUser, setCurrentUser] = useState({});
+  // const [emotionList, setEmotionList] = useState([]);
+  const [emotionToday, setEmotionToday] = useState({});
+  const [selectedEmotion, setSelectedEmotion] = useState({
+    text: '',
+    isOpen: false,
+  })
+  const [isActiveButtonSubmit, setIsActiveButtonSubmit] = useState(true);
+  const [isClickExit, setIsClickExit] = useState(false);
+  const [conflictErr, setConflictErr] = useState(false);
 
-  // $irritabillityStore.on(irritabillityValue, (state, data) => data)
+  function handleInfoClick(info) {
+    setSelectedEmotion({
+      text: info.text,
+      isOpen: true,
+    })
+  }
 
-  // $irritabillityStore.watch(value => {
-  //   console.log(value);
-  // })
+  function handleLogoutClick() {
+    setIsClickExit(true);
+  }
 
-  // // const { value } = useUnit({
-  //   value: $irritabillityStore,
-  // })
-  // const handleClickIrritabillity = useUnit(irritabillityValue);
+  function closePopupInfo(emotion) {
+    setSelectedEmotion({
+      text: emotion.text,
+      isOpen: false,
+    });
+  }
 
-  // console.log(irritabillityValue)
+  function closePopupLogout() {
+    setIsClickExit(false);
+  }
+
+  const navigate = useNavigate();
+
+  // ПРОВЕРКА ТОКЕНА
+  useEffect(() => {
+    tokenCheck();
+  }, [])
+
+  const tokenCheck = () => {
+    api
+      .checkToken()
+      .then((res) => {
+        if (res) {
+          actionCreatorLoggedIn(true);
+          // setIsLoggedIn(true);
+        } else {
+          // setIsLoggedIn(false);
+          actionCreatorLoggedIn(false);
+          navigate("/sign-in", { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        // setIsLoggedIn(false);
+        actionCreatorLoggedIn(false);
+        navigate("/sign-in", { replace: true });
+      })
+  }
+
+  // ПОЛУЧЕНИЕ ДАННЫХ О ПОЛЬЗОВАТЕЛЕ 
+  const createEmotionListToday = useCallback(() => {
+    api
+      .addNewEmotionState({
+        irritabillity: 0,
+        mania: 0,
+        anxiety: 0,
+        panic: 0,
+        despondency: 0,
+        depression: 0,
+        date: Date.now(),
+      })
+      .then((emotion) => {
+        setEmotionToday(emotion);
+        actionCreatorIrritabillity(0);
+        actionCreatorMania(0);
+        actionCreatorAnxiety(0);
+        actionCreatorPanic(0);
+        actionCreatorDespondency(0);
+        actionCreatorDepression(0);
+        api
+          .getEmotionsState()
+          .then(res => {
+            actionCreatorEmotionList(res)
+          })
+          .catch(err => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  }, [actionCreatorEmotionList, actionCreatorAnxiety, actionCreatorIrritabillity, actionCreatorMania, actionCreatorPanic, actionCreatorDespondency, actionCreatorDepression, setEmotionToday])
+
+  useEffect(() => {
+    if (value_loggedIn) {
+      Promise.all([api.getEmotionsState(), api.getProfileContent()])
+        .then(([emotion, info]) => {
+          // setEmotionList(emotion);
+          actionCreatorEmotionList(emotion)
+          setCurrentUser(info);
+
+          const latestEmotion = emotion.find(item => {
+            return Intl.DateTimeFormat('ru').format(item.date) === date ? item : undefined;
+          })
+
+          // const latestEmotion = emotion.at(-1);
+          console.log(latestEmotion)
+
+          if (latestEmotion !== undefined) {
+            const dateNow = Intl.DateTimeFormat('ru').format(latestEmotion.date);
+            // if (emotion.length === 0) {
+            //   createEmotionListToday();
+            // } else 
+            if (dateNow !== date) {
+              createEmotionListToday();
+              console.log('tic1')
+            } else if (dateNow === date) {
+              setEmotionToday(emotion.at(-1));
+              actionCreatorIrritabillity(latestEmotion.irritabillity);
+              actionCreatorMania(latestEmotion.mania);
+              actionCreatorAnxiety(latestEmotion.anxiety);
+              actionCreatorPanic(latestEmotion.panic);
+              actionCreatorDespondency(latestEmotion.despondency);
+              actionCreatorDepression(latestEmotion.depression);
+            }
+          } else {
+            createEmotionListToday();
+            console.log('tic2')
+          }
+
+        })
+        .catch(err => console.log(err));
+    }
+
+
+  }, [value_loggedIn, actionCreatorAnxiety, actionCreatorDepression, actionCreatorDespondency, actionCreatorIrritabillity, actionCreatorMania, actionCreatorPanic, actionCreatorEmotionList, createEmotionListToday, setEmotionToday]);
+
+  useEffect(() => {
+    console.log(emotionToday)
+    if (emotionToday !== undefined && value_loggedIn === true) {
+      if (Intl.DateTimeFormat('ru').format(emotionToday.date) === date && (emotionToday.irritabillity !== value_irritabillity || emotionToday.mania !== value_mania || emotionToday.anxiety !== value_anxiety || emotionToday.panic !== value_panic || emotionToday.despondency !== value_despondency || emotionToday.depression !== value_depression)) {
+        api
+          .getEmotionsState()
+          .then(res => {
+            actionCreatorEmotionList(res);
+          })
+          .catch(err => console.log(err));
+      }
+    }
+
+  }, [actionCreatorEmotionList, value_irritabillity, value_mania, value_anxiety, value_panic, value_despondency, value_depression, emotionToday, value_loggedIn]);
+
+  // РЕГИСТРАЦИЯ
+  function handleSubmitRegister(password, login) {
+    api
+      .register(password, login)
+      .then((res) => {
+        navigate('/sign-in', { replace: true });
+        if (res) {
+          handleSubmitAuth(password, login);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setConflictErr(true);
+      });
+  }
+
+  // АВТОРИЗАЦИЯ
+  function handleSubmitAuth(password, login) {
+    api
+      .authorization(password, login)
+      .then((res) => {
+        actionCreatorLoggedIn(true);
+        // setIsLoggedIn(true);
+        navigate('/', { replace: true })
+        return res;
+      })
+      .catch(err => console.log(err));
+  }
+
+  // ОБНОВЛЕНИЕ ДАННЫХ ПРОФИЛЯ
+  function handleUpdateUser(profileData) {
+    api
+      .submitProfileData(profileData)
+      .then((newData) => {
+        setCurrentUser(newData);
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        setIsActiveButtonSubmit(true);
+      });
+  }
+
+  // ОЧИСТКА КУК ПРИ ВЫХОДЕ
+  const handleClearCookie = () => {
+    api
+      .clearCookie()
+      .then(() => {
+        // setIsLoggedIn(false);
+        navigate('/sign-in', { replace: true });
+        actionCreatorIrritabillity(0);
+        actionCreatorMania(0);
+        actionCreatorAnxiety(0);
+        actionCreatorPanic(0);
+        actionCreatorDespondency(0);
+        actionCreatorDepression(0);
+        actionCreatorEmotionList([]);
+        actionCreatorLoggedIn(false);
+        setIsClickExit(false);
+        window.location.reload();
+      })
+      .catch((err) => console.log(err));
+  }
+
+  useEffect(() => {
+    if (!selectedEmotion.isOpen) return;
+    const handleEscapeClosePopup = (evt) => {
+      if (evt.key === 'Escape') {
+        setSelectedEmotion({
+          text: selectedEmotion.text,
+          isOpen: false,
+        });
+      }
+    }
+    document.addEventListener('keydown', handleEscapeClosePopup);
+    return () => {
+      document.removeEventListener('keydown', handleEscapeClosePopup);
+    }
+  }, [selectedEmotion]);
 
   return (
-    <div className="app">
-      <Routes>
-        <Route
-          path="/sign-in"
-          element={
-            <Login />
-          }
-        />
-        <Route
-          path="/sign-up"
-          element={
-            <Register />
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <Profile />
-          }
-        />
-        <Route
-          path="/calendar"
-          element={
-            <Calendar
-              irritabillity={irritabillity}
-              mania={mania}
-              anxiety={anxiety}
-              despondency={despondency}
-              depression={depression}
-              panic={panic}
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="app">
+        <Routes>
+          {
+            !value_loggedIn && <Route
+              path="/sign-in"
+              element={
+                <Login
+                  onSubmit={handleSubmitAuth}
+                />
+              }
             />
           }
-        />
-        <Route
-          path="/statistics"
-          element={
-            <Statistics
-              irritabillity={irritabillity}
-              mania={mania}
-              anxiety={anxiety}
-              despondency={despondency}
-              depression={depression}
-              panic={panic}
+          {
+            !value_loggedIn && <Route
+              path="/sign-up"
+              element={
+                <Register
+                  conflictErr={conflictErr}
+                  onSubmit={handleSubmitRegister}
+                />
+              }
             />
           }
-        />
-        <Route
-          path="/"
-          element={
-            <Today
-              setIrritabillity={setIrritabillity}
-              setMania={setMania}
-              setAnxiety={setAnxiety}
-              setDespondency={setDespondency}
-              setDepression={setDepression}
-              setPanic={setPanic}
-            />
-          }
-        />
-        <Route
-          path="*"
-          element={
-            isLoggedIn
-              ? <Navigate to="/" replace />
-              : <Navigate to="/sign-in" replace />
-          }
-        />
-      </Routes>
-    </div>
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute
+                element={Profile}
+                onUpdateUser={handleUpdateUser}
+                onLogoutProfile={isClickExit}
+                loggedIn={value_loggedIn}
+                isActiveButtonSubmit={isActiveButtonSubmit}
+                setIsActiveButtonSubmit={setIsActiveButtonSubmit}
+                onClickExit={handleLogoutClick}
+              />
+            }
+          />
+          <Route
+            path="/calendar"
+            element={
+              <ProtectedRoute
+                element={Calendar}
+                emotionToday={emotionToday}
+                // emotionList={emotionList}
+                loggedIn={value_loggedIn}
+              />
+            }
+          />
+          <Route
+            path="/statistics"
+            element={
+              <ProtectedRoute
+                element={Statistics}
+                // emotionList={emotionList}
+                loggedIn={value_loggedIn}
+              />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute
+                element={Today}
+                loggedIn={value_loggedIn}
+                emotionToday={emotionToday}
+                setEmotionToday={setEmotionToday}
+                onInfoClick={handleInfoClick}
+              />
+            }
+          />
+          <Route
+            path="*"
+            element={
+              value_loggedIn
+                ? <Navigate to="/" replace />
+                : <Navigate to="/sign-in" replace />
+            }
+          />
+        </Routes>
+        <PopupInfo onClose={closePopupInfo} emotion={selectedEmotion} />
+        <PopupLogout onClose={closePopupLogout} onLogout={handleClearCookie} isOpen={isClickExit} />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  value_irritabillity: state.value_irritabillity,
+  value_mania: state.value_mania,
+  value_anxiety: state.value_anxiety,
+  value_panic: state.value_panic,
+  value_despondency: state.value_despondency,
+  value_depression: state.value_depression,
+  value_emotionList: state.value_emotionList,
+  value_loggedIn: state.value_loggedIn,
+})
+
+const mapDispatchToProps = dispatch => ({
+  actionCreatorIrritabillity: value => dispatch(actionCreatorIrritabillity(value)),
+  actionCreatorMania: value => dispatch(actionCreatorMania(value)),
+  actionCreatorAnxiety: value => dispatch(actionCreatorAnxiety(value)),
+  actionCreatorDespondency: value => dispatch(actionCreatorDespondency(value)),
+  actionCreatorPanic: value => dispatch(actionCreatorPanic(value)),
+  actionCreatorDepression: value => dispatch(actionCreatorDepression(value)),
+  actionCreatorEmotionList: value => dispatch(actionCreatorEmotionList(value)),
+  actionCreatorLoggedIn: value => dispatch(actionCreatorLoggedIn(value))
+})
+
+export default (connect(
+  mapStateToProps,
+  mapDispatchToProps,
+))(App);
