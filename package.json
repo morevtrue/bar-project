@@ -49,6 +49,5 @@
   },
   "devDependencies": {
     "gh-pages": "^5.0.0"
-  },
-  "homepage": "https://morevtrue.github.io/bar-project/"
+  }
 }
