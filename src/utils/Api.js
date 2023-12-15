@@ -125,7 +125,7 @@ export default class Api {
 }
 
 export const api = new Api({
-  baseUrl: 'http://localhost:4000',
+  baseUrl: 'https://api.sla2324.fvds.ru',
   headers: {
     'Content-Type': 'application/json'
   }
