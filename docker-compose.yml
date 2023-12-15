@@ -11,7 +11,7 @@ services:
     labels:
       - "traefik.enable=true"  
       - "traefik.docker.network=default"
-      - "traefik.http.routers.bar-frontend.entrypoints=websecure"
+      - "traefik.http.routers.bar-frontend.entrypoints=https"
       - "traefik.http.routers.bar-frontend.rule=Host(`bar.sla2324.fvds.ru`)"
       - "traefik.http.routers.bar-frontend.service=bar-frontend-service"
       - "traefik.http.services.bar-frontend-service.loadbalancer.server.port=80"
