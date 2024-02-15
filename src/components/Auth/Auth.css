@@ -33,7 +33,6 @@
 .auth__logo {
   object-fit: cover;
   max-width: 5em;
-
 }
 
 .auth__form {
@@ -79,6 +78,10 @@
   gap: 5px;
 }
 
+/* .auth__form-input-content_type_register {
+  margin-top: 26px;
+} */
+
 .auth__form-label {
   font-size: 1.4em;
   font-weight: 400;
@@ -96,20 +99,18 @@
   background-color: inherit;
   transition: border-bottom .5s linear;
   color: rgba(255, 255, 255, 1);
+  outline: none;
 }
 
 .auth__form-input-login-err {
-  visibility: hidden;
-  margin: 0 0 -13px;
+  /* visibility: hidden; */
+  margin: 0;
   padding: 0;
   color: rgb(255, 2, 2);
   font-size: 13px;
   font-weight: 500;
   line-height: 1;
-}
-
-.auth__form-input-login-err_type_active {
-  visibility: visible;
+  height: 26px;
 }
 
 input::-moz-placeholder {
@@ -128,6 +129,20 @@ input::-webkit-input-placeholder {
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.auth__error-text {
+  visibility: hidden;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 13.31px;
+  text-align: center;
+  color: rgba(255, 0, 76, 1);
+}
+
+.auth__error-text_type_active {
+  visibility: visible;
 }
 
 .auth__form-button {
@@ -179,6 +194,7 @@ input::-webkit-input-placeholder {
   color: rgb(255, 230, 0);
   font-size: 13px;
   font-weight: 500;
+  height: 26px;
 }
 
 .auth__form-password-error_type_active {

@@ -153,10 +153,10 @@ function Profile(props) {
     <>
       <Header profile={true} />
       <main className="profile">
-        <div className="profile__content-sos">
+        {/* <div className="profile__content-sos">
           <p className="profile__button-text">Если вам нужна помощь, нажмите на кнопку ниже:</p>
           <button className="profile__button-sos"></button>
-        </div>
+        </div> */}
         <form className="profile__form" name="profileForm" onSubmit={handleSubmitForm}>
           <h1 className="profile__form-title">Ваш профиль</h1>
           <label htmlFor="profile-input-name" className="profile__form-label">Имя</label>

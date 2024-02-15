@@ -7,12 +7,17 @@ function Login(props) {
     <main className="login">
       <Auth
         onSubmitAuth={props.onSubmit}
+        isUnathorized={props.errUnathorized}
+        isUnathorizedText="Неправильные почта или пароль"
+        isBadRequestLogin={props.errBadRequestLogin}
+        isBadRequestLoginText="Переданы некорректные данные при авторизации."
         isLogin={true}
         helloText="Рады видеть!"
         buttonText="Войти"
         authText="Ещё не зарегистрированы?"
         authLogin="Регистрация"
         link="/sign-up"
+        errEmail={props.errEmailLogin}
       />
     </main>
   )

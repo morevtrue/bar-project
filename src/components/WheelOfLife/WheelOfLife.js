@@ -7,6 +7,50 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { useEffect } from "react";
 
 function WheelOfLife(props) {
+  am5.addLicense("AM5C123456");
+
+  const [data, setData] = React.useState([]);
+
+  useEffect(() => {
+    setData([{
+      category: "Мания",
+      value: props.mania,
+      columnSettings: {
+        fill: "#dbeaf1"
+      }
+    }, {
+      category: "Раздражительность",
+      value: props.irritabillity,
+      columnSettings: {
+        fill: "#aed3e5"
+      }
+    }, {
+      category: "Тревожность",
+      value: props.anxiety,
+      columnSettings: {
+        fill: "#68b3da"
+      }
+    }, {
+      category: "Паника",
+      value: props.panic,
+      columnSettings: {
+        fill: "#5196b7"
+      }
+    }, {
+      category: "Уныние",
+      value: props.despondency,
+      columnSettings: {
+        fill: "#035d8f"
+      }
+    }, {
+      category: "Депрессия",
+      value: props.depression,
+      columnSettings: {
+        fill: "#024669"
+      }
+    }])
+  }, [props.mania, props.irritabillity, props.anxiety, props.despondency, props.depression, props.panic])
+
   useEffect(() => {
     let root = am5.Root.new("chartdiv");
 
@@ -35,7 +79,7 @@ function WheelOfLife(props) {
 
     let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
       min: 0,
-      max: 5,
+      max: 100,
       renderer: am5radar.AxisRendererRadial.new(root, {
         minGridDistance: 30
       })
@@ -57,44 +101,6 @@ function WheelOfLife(props) {
       width: am5.p100
     });
 
-    let data = [{
-      category: "Раздражительность",
-      value: props.irritabillity,
-      columnSettings: {
-        fill: "#024669"
-      }
-    }, {
-      category: "Мания",
-      value: props.mania,
-      columnSettings: {
-        fill: "#035d8f"
-      }
-    }, {
-      category: "Тревожность",
-      value: props.anxiety,
-      columnSettings: {
-        fill: "#5196b7"
-      }
-    }, {
-      category: "Паника",
-      value: props.panic,
-      columnSettings: {
-        fill: "#68b3da"
-      }
-    }, {
-      category: "Уныние",
-      value: props.despondency,
-      columnSettings: {
-        fill: "#aed3e5"
-      }
-    }, {
-      category: "Депрессия",
-      value: props.depression,
-      columnSettings: {
-        fill: "#dbeaf1"
-      }
-    }];
-
     series.data.setAll(data);
     xAxis.data.setAll(data);
 
@@ -104,7 +110,7 @@ function WheelOfLife(props) {
     return () => {
       root.dispose();
     }
-  })
+  }, [data])
 
   return (
     <div id="chartdiv" className={`wheel-of-life ${props.isStat ? 'wheel-of-life_type_stat' : ''}`}></div>

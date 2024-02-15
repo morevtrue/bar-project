@@ -14,6 +14,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { date } from '../../utils/constants';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { connect } from 'react-redux';
+import actionCreatorText from '../../store/actionCreators/actionCreatorText';
 import actionCreatorIrritabillity from '../../store/actionCreators/actionCreatorIrritabillity';
 import actionCreatorMania from '../../store/actionCreators/actionCreatorMania';
 import actionCreatorAnxiety from '../../store/actionCreators/actionCreatorAnxiety';
@@ -32,6 +33,7 @@ function App(props) {
     value_panic,
     value_despondency,
     value_depression,
+    value_text,
     value_loggedIn,
     actionCreatorIrritabillity,
     actionCreatorMania,
@@ -39,6 +41,7 @@ function App(props) {
     actionCreatorPanic,
     actionCreatorDespondency,
     actionCreatorDepression,
+    actionCreatorText,
     actionCreatorEmotionList,
     actionCreatorLoggedIn,
   } = props;
@@ -49,10 +52,15 @@ function App(props) {
   const [selectedEmotion, setSelectedEmotion] = useState({
     text: '',
     isOpen: false,
-  })
+  });
   const [isActiveButtonSubmit, setIsActiveButtonSubmit] = useState(true);
   const [isClickExit, setIsClickExit] = useState(false);
   const [conflictErr, setConflictErr] = useState(false);
+  const [errUnathorized, setErrUnathorized] = useState(false);
+  const [errBadRequestProfile, setErrBadRequestProfile] = useState(false);
+  const [errBadRequest, setErrBadRequest] = useState(false);
+  const [errEmail, setErrEmail] = useState('');
+  const [errEmailLogin, setErrEmailLogin] = useState('');
 
   function handleInfoClick(info) {
     setSelectedEmotion({
@@ -114,6 +122,7 @@ function App(props) {
         panic: 0,
         despondency: 0,
         depression: 0,
+        text: '',
         date: Date.now(),
       })
       .then((emotion) => {
@@ -124,6 +133,7 @@ function App(props) {
         actionCreatorPanic(0);
         actionCreatorDespondency(0);
         actionCreatorDepression(0);
+        actionCreatorText('');
         api
           .getEmotionsState()
           .then(res => {
@@ -132,7 +142,7 @@ function App(props) {
           .catch(err => console.log(err));
       })
       .catch((err) => console.log(err));
-  }, [actionCreatorEmotionList, actionCreatorAnxiety, actionCreatorIrritabillity, actionCreatorMania, actionCreatorPanic, actionCreatorDespondency, actionCreatorDepression, setEmotionToday])
+  }, [actionCreatorEmotionList, actionCreatorAnxiety, actionCreatorIrritabillity, actionCreatorMania, actionCreatorPanic, actionCreatorDespondency, actionCreatorDepression, actionCreatorText, setEmotionToday])
 
   useEffect(() => {
     if (value_loggedIn) {
@@ -141,13 +151,12 @@ function App(props) {
           // setEmotionList(emotion);
           actionCreatorEmotionList(emotion)
           setCurrentUser(info);
-
+          console.log(emotion)
           const latestEmotion = emotion.find(item => {
             return Intl.DateTimeFormat('ru').format(item.date) === date ? item : undefined;
           })
 
           // const latestEmotion = emotion.at(-1);
-          console.log(latestEmotion)
 
           if (latestEmotion !== undefined) {
             const dateNow = Intl.DateTimeFormat('ru').format(latestEmotion.date);
@@ -165,6 +174,7 @@ function App(props) {
               actionCreatorPanic(latestEmotion.panic);
               actionCreatorDespondency(latestEmotion.despondency);
               actionCreatorDepression(latestEmotion.depression);
+              actionCreatorText(latestEmotion.text);
             }
           } else {
             createEmotionListToday();
@@ -176,12 +186,13 @@ function App(props) {
     }
 
 
-  }, [value_loggedIn, actionCreatorAnxiety, actionCreatorDepression, actionCreatorDespondency, actionCreatorIrritabillity, actionCreatorMania, actionCreatorPanic, actionCreatorEmotionList, createEmotionListToday, setEmotionToday]);
+  }, [value_loggedIn, actionCreatorAnxiety, actionCreatorDepression, actionCreatorDespondency, actionCreatorIrritabillity, actionCreatorMania, actionCreatorPanic, actionCreatorEmotionList, actionCreatorText, createEmotionListToday, setEmotionToday]);
+
+  console.log(emotionToday)
 
   useEffect(() => {
-    console.log(emotionToday)
     if (emotionToday !== undefined && value_loggedIn === true) {
-      if (Intl.DateTimeFormat('ru').format(emotionToday.date) === date && (emotionToday.irritabillity !== value_irritabillity || emotionToday.mania !== value_mania || emotionToday.anxiety !== value_anxiety || emotionToday.panic !== value_panic || emotionToday.despondency !== value_despondency || emotionToday.depression !== value_depression)) {
+      if (Intl.DateTimeFormat('ru').format(emotionToday.date) === date && (emotionToday.irritabillity !== value_irritabillity || emotionToday.mania !== value_mania || emotionToday.anxiety !== value_anxiety || emotionToday.panic !== value_panic || emotionToday.despondency !== value_despondency || emotionToday.depression !== value_depression || emotionToday.text !== value_text)) {
         api
           .getEmotionsState()
           .then(res => {
@@ -191,7 +202,7 @@ function App(props) {
       }
     }
 
-  }, [actionCreatorEmotionList, value_irritabillity, value_mania, value_anxiety, value_panic, value_despondency, value_depression, emotionToday, value_loggedIn]);
+  }, [actionCreatorEmotionList, value_irritabillity, value_mania, value_anxiety, value_panic, value_despondency, value_depression, value_text, emotionToday, value_loggedIn]);
 
   // РЕГИСТРАЦИЯ
   function handleSubmitRegister(password, login) {
@@ -200,12 +211,19 @@ function App(props) {
       .then((res) => {
         navigate('/sign-in', { replace: true });
         if (res) {
+          setErrBadRequest(false);
+          setConflictErr(false);
           handleSubmitAuth(password, login);
         }
       })
       .catch((err) => {
         console.log(err);
-        setConflictErr(true);
+        if (err === 400) {
+          setErrBadRequest(true);
+        } else if (err === 409) {
+          setConflictErr(true);
+        }
+        setErrEmail(login);
       });
   }
 
@@ -217,9 +235,20 @@ function App(props) {
         actionCreatorLoggedIn(true);
         // setIsLoggedIn(true);
         navigate('/', { replace: true })
+        if (res) {
+          setErrUnathorized(false);
+          setErrBadRequestProfile(false);
+        }
         return res;
       })
-      .catch(err => console.log(err));
+      .catch((err) => {
+        if (err === 401) {
+          setErrUnathorized(true);
+        } else if (err === 400) {
+          setErrBadRequestProfile(true);
+        }
+        setErrEmailLogin(login);
+      })
   }
 
   // ОБНОВЛЕНИЕ ДАННЫХ ПРОФИЛЯ
@@ -248,6 +277,7 @@ function App(props) {
         actionCreatorPanic(0);
         actionCreatorDespondency(0);
         actionCreatorDepression(0);
+        actionCreatorText('');
         actionCreatorEmotionList([]);
         actionCreatorLoggedIn(false);
         setIsClickExit(false);
@@ -282,6 +312,9 @@ function App(props) {
               element={
                 <Login
                   onSubmit={handleSubmitAuth}
+                  errUnathorized={errUnathorized}
+                  errBadRequestLogin={errBadRequestProfile}
+                  errEmailLogin={errEmailLogin}
                 />
               }
             />
@@ -292,7 +325,9 @@ function App(props) {
               element={
                 <Register
                   conflictErr={conflictErr}
+                  errBadRequest={errBadRequest}
                   onSubmit={handleSubmitRegister}
+                  errEmail={errEmail}
                 />
               }
             />
@@ -367,6 +402,7 @@ const mapStateToProps = state => ({
   value_panic: state.value_panic,
   value_despondency: state.value_despondency,
   value_depression: state.value_depression,
+  value_text: state.value_text,
   value_emotionList: state.value_emotionList,
   value_loggedIn: state.value_loggedIn,
 })
@@ -378,6 +414,7 @@ const mapDispatchToProps = dispatch => ({
   actionCreatorDespondency: value => dispatch(actionCreatorDespondency(value)),
   actionCreatorPanic: value => dispatch(actionCreatorPanic(value)),
   actionCreatorDepression: value => dispatch(actionCreatorDepression(value)),
+  actionCreatorText: value => dispatch(actionCreatorText(value)),
   actionCreatorEmotionList: value => dispatch(actionCreatorEmotionList(value)),
   actionCreatorLoggedIn: value => dispatch(actionCreatorLoggedIn(value))
 })

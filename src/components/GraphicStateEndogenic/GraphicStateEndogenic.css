@@ -5,16 +5,17 @@
 }
 
 @media (max-width: 991px) {
-  /* #chart-div-endogenic {
+  #chart-div-endogenic {
     /* max-width: 700px; */
-  /*} */
+    width: 95%;
+  }
 }
 
 @media (max-width: 820px) {
   #chart-div-endogenic {
     /* max-width: 500px; */
     height: 23.3vh;
-    width: 90vw;
+    width: 95vw;
   }
 }
 

@@ -1,11 +1,12 @@
 .today {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
+  justify-content: center;
   flex: 1;
   width: 100%;
   padding: 0;
-  margin: o auto;
+  margin: 0 auto;
   align-items: center;
 }
 
@@ -25,13 +26,17 @@
   line-height: 1;
 }
 
-@media (max-width: 821px) {
+/* @media (max-width: 821px) {
   .today {
     justify-content: space-evenly;
   }
-}
+} */
 
 @media (max-width: 540px) {
+  .today {
+    justify-content: flex-start;
+  }
+
   .today__title {
     font-size: 1.6em;
   }

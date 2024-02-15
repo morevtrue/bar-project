@@ -20,7 +20,7 @@ export default class Api {
     }).then(res => this._getCheck(res));
   }
 
-  addNewEmotionState({ irritabillity, mania, anxiety, panic, despondency, depression, date }) {
+  addNewEmotionState({ irritabillity, mania, anxiety, panic, despondency, depression, date, text }) {
     return fetch(this._baseUrl + '/emotions', {
       method: 'POST',
       credentials: 'include',
@@ -28,12 +28,12 @@ export default class Api {
         'Content-Type': this._contentType
       },
       body: JSON.stringify({
-        irritabillity, mania, anxiety, panic, despondency, depression, date
+        irritabillity, mania, anxiety, panic, despondency, depression, date, text
       })
     }).then(res => this._getCheck(res));
   }
 
-  updateEmotionState({ irritabillity, mania, anxiety, panic, despondency, depression, emotionId }) {
+  updateEmotionState({ irritabillity, mania, anxiety, panic, despondency, depression, text, emotionId }) {
     return fetch(this._baseUrl + `/emotions/${emotionId}`, {
       method: 'PATCH',
       credentials: 'include',
@@ -47,7 +47,8 @@ export default class Api {
         anxiety,
         panic,
         despondency,
-        depression
+        depression,
+        text
       })
     }).then(res => this._getCheck(res));
   }
@@ -125,7 +126,8 @@ export default class Api {
 }
 
 export const api = new Api({
-  baseUrl: 'https://api.sla2324.fvds.ru',
+  // baseUrl: 'https://api.sla2324.fvds.ru',
+  baseUrl: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json'
   }

@@ -4,6 +4,7 @@
   align-items: center;
   flex-direction: row;
   flex: 1;
+  margin: 0 20px;
   /* background-color: #72757a; */
   /* margin-inline: auto; */
 }
@@ -12,12 +13,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 500px;
-  min-height: 500px;
+  width: 40%;
+  max-width: 400px;
+  min-height: 400px;
+}
+
+.react-datepicker {
+  width: 100%;
+  max-width: 400px;
 }
 
 .react-datepicker__month-container {
-  width: 380px;
+  width: 100%;
+  max-width: 400px;
   font-family: "Inter", "Arial", sans-serif;
 }
 
@@ -40,29 +48,91 @@
 }
 
 .react-datepicker .react-datepicker__navigation {
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  max-width: 40px;
+  min-height: 40px;
 }
 
 .react-datepicker__week .react-datepicker__day--today {
   font-weight: 500;
 }
 
-@media (max-width: 991px) {
+.calendar__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 25%;
+  max-width: 250px;
+  visibility: hidden;
+}
+
+.calendar__form_type_active {
+  visibility: visible;
+}
+
+.calendar__form-title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.calendar__form-input {
+  font-size: 16px;
+  line-height: 1;
+  min-height: 50px;
+  padding: 5px;
+  border: 1px solid #19b2e6;
+  border-radius: 5px;
+  outline: none;
+}
+
+.calendar__form-button {
+  font-size: 1.8em;
+  line-height: 1;
+  font-weight: 500;
+  margin: 0 0 15px;
+  padding: 13px 10px;
+  color: rgba(255, 255, 255, 1);
+  background-color: #19b2e6;
+  border: none;
+  border-radius: 10px;
+  opacity: 1;
+  transition: opacity .5s linear;
+}
+
+.calendar__form-button:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.calendar__form-button_type_save {
+  background-color: #51ce4d;
+}
+
+.calendar__form-button_type_save:hover {
+  cursor: default;
+  opacity: 1;
+}
+
+@media (max-width: 1096px) {
   .calendar {
     flex-direction: column;
     justify-content: center;
-    gap: 4.24vh;
+    gap: 10px;
+    margin-bottom: 148px;
   }
 
   .calendar__container {
     margin-top: 20px;
-    width: 270px;
+    max-width: 270px;
     min-height: 270px;
   }
 
   .react-datepicker__month-container {
-    width: 270px;
+    max-width: 270px;
     font-family: "Inter", "Arial", sans-serif;
   }
 
@@ -88,6 +158,23 @@
     width: 32px;
     height: 32px;
   }
+
+  .calendar__form {
+    width: 30%;
+    max-width: 300px;
+  }
+
+  .calendar__form-title {
+    font-size: 16px;
+  }
+
+  .calendar__form-input {
+    font-size: 14px;
+  }
+
+  .calendar__form-button {
+    font-size: 1.6em;
+  }
 }
 
 @media (max-width: 540px) {
@@ -95,16 +182,17 @@
     flex-direction: column;
     justify-content: center;
     gap: 0;
+    margin-bottom: 78px;
   }
 
   .calendar__container {
     margin-top: 0;
-    width: 300px;
+    max-width: 300px;
     min-height: 230px;
   }
 
   .react-datepicker__month-container {
-    width: 300px;
+    max-width: 300px;
     font-family: "Inter", "Arial", sans-serif;
   }
 
@@ -129,5 +217,22 @@
   .react-datepicker .react-datepicker__navigation {
     width: 28px;
     height: 28px;
+  }
+
+  .calendar__form {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 100px;
+  }
+
+  .calendar__form-title {
+    font-weight: 400;
+  }
+}
+
+@media (max-width: 400px) {
+  .calendar {
+    margin-bottom: 38px;
   }
 }

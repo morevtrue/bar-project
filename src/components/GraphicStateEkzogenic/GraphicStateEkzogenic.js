@@ -6,6 +6,44 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import am5locales_ru_RU from "@amcharts/amcharts5/locales/ru_RU";
 
 function GraphicStateEkzogenic(props) {
+  am5.addLicense("AM5C123456");
+
+  const [data, setData] = React.useState([]);
+
+  useEffect(() => {
+    let date = new Date(props.year, props.month, 0);
+    date.setHours(0, 0, 0, 0);
+    let value = 0;
+
+    let arrCount = new Array(31);
+
+    function generateData(count) {
+      am5.time.add(date, "day", 1);
+
+      props.dayCountEkzogenic.forEach((item, i) => {
+        if (Intl.DateTimeFormat('ru').format(item.date) === date.toLocaleDateString()) {
+          return arrCount[count] = item.count;
+        }
+      })
+
+      value = arrCount[count] === undefined ? 0 : arrCount[count];
+      return {
+        date: date.getTime(),
+        value: Math.floor(value / 3),
+      };
+    }
+
+    function generateDatas(count) {
+      let data = [];
+      for (let i = 0; i < count; i++) {
+        data.push(generateData(i));
+      }
+      return data;
+    }
+
+    setData(generateDatas(31));
+  }, [props.year, props.month, props.dayCountEkzogenic])
+
   useEffect(() => {
     let root = am5.Root.new("chart-div");
 
@@ -27,37 +65,6 @@ function GraphicStateEkzogenic(props) {
     }));
     cursor.lineY.set("visible", false);
 
-    let date = new Date(props.year, props.month, 0);
-    date.setHours(0, 0, 0, 0);
-    let value = 0;
-
-    let arrCount = new Array(31);
-
-    function generateData(count) {
-      am5.time.add(date, "day", 1);
-
-      props.dayCountEkzogenic.forEach((item, i) => {
-        if (Intl.DateTimeFormat('ru').format(item.date) === date.toLocaleDateString()) {
-          // return arrCount.push(item.count);
-          return arrCount[count] = item.count;
-        }
-      })
-
-      value = arrCount[count] === undefined ? 0 : arrCount[count];
-      return {
-        date: date.getTime(),
-        value: value,
-      };
-    }
-
-    function generateDatas(count) {
-      let data = [];
-      for (let i = 0; i < count; i++) {
-        data.push(generateData(i));
-      }
-      return data;
-    }
-
     let xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
       maxDeviation: 0,
       baseInterval: {
@@ -65,15 +72,16 @@ function GraphicStateEkzogenic(props) {
         count: 1
       },
       renderer: am5xy.AxisRendererX.new(root, {
-        minGridDistance: 30
+        minGridDistance: 15,
       }),
       tooltip: am5.Tooltip.new(root, {})
     }));
 
     xAxis.get("dateFormats")["day"] = "dd";
 
-
     let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+      min: 0,
+      max: 100,
       renderer: am5xy.AxisRendererY.new(root, {})
     }));
 
@@ -94,8 +102,16 @@ function GraphicStateEkzogenic(props) {
       orientation: "horizontal"
     }));
 
-    let data = generateDatas(30);
     series.data.setAll(data);
+
+    series.columns.template.adapters.add("fill", function (fill, target) {
+      if (target.dataItem.get("valueY") >= 80) {
+        return am5.color(0xb30000);
+      } else if (target.dataItem.get("valueY") < 80 && target.dataItem.get("valueY") > 50) {
+        return am5.color(0xFFA500);
+      }
+      return fill;
+    });
 
     series.appear(1000);
     chart.appear(1000, 100);
@@ -103,7 +119,7 @@ function GraphicStateEkzogenic(props) {
     return () => {
       root.dispose();
     }
-  }, [props.month, props.year, props.dayCountEkzogenic])
+  }, [data])
 
   return (
     <div id="chart-div"></div>

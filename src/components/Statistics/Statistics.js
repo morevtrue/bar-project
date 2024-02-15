@@ -26,8 +26,6 @@ function Statistics(props) {
     value_emotionList
   } = props;
 
-  console.log(value_emotionList)
-
   function handleClickNextMonth() {
     setMonth(month + 1);
   }
@@ -137,21 +135,21 @@ function Statistics(props) {
         </div>
         <div className="statistics__data">
           <WheelOfLife isStat={true}
-            irritabillity={summIrritabillity}
-            mania={summMania}
-            anxiety={summAnxiety}
-            panic={summPanic}
-            despondency={summDespondency}
-            depression={summDepression}
+            irritabillity={Math.floor(summIrritabillity)}
+            mania={Math.floor(summMania)}
+            anxiety={Math.floor(summAnxiety)}
+            panic={Math.floor(summPanic)}
+            despondency={Math.floor(summDespondency)}
+            depression={Math.floor(summDepression)}
           />
           <div className="statistics__graphics">
-            <h1 className="statistics__graphic-name">Экзогенное состояние</h1>
+            <h1 className="statistics__graphic-name">Уровень психических проблем</h1>
             <GraphicStateEkzogenic
               month={month}
               year={year}
               dayCountEkzogenic={dayCountEkzogenic}
             />
-            <h2 className="statistics__graphic-name">Эндогенное состояние</h2>
+            <h2 className="statistics__graphic-name">Уровень физиологических проблем</h2>
             <GraphicStateEndogenic
               month={month}
               year={year}

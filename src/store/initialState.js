@@ -5,6 +5,7 @@ const initialState = {
   value_panic: 0,
   value_despondency: 0,
   value_depression: 0,
+  value_text: '',
   value_emotionList: [],
   value_loggedIn: false,
 }

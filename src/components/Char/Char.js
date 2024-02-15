@@ -46,10 +46,10 @@ function Char(props) {
   const handleClick = (id, evt) => {
     setClickedId(id);
     if (props.card.id === 1) {
-      actionCreatorIrritabillity(evt.target.value)
+      actionCreatorMania(evt.target.value)
       api
         .updateEmotionState({
-          irritabillity: evt.target.value,
+          mania: evt.target.value,
           emotionId: props.emotionToday._id,
         })
         .then(item => {
@@ -57,10 +57,10 @@ function Char(props) {
         })
         .catch(err => console.log(err));
     } else if (props.card.id === 2) {
-      actionCreatorMania(evt.target.value);
+      actionCreatorIrritabillity(evt.target.value);
       api
         .updateEmotionState({
-          mania: evt.target.value,
+          irritabillity: evt.target.value,
           emotionId: props.emotionToday._id,
         })
         .then(item => {
@@ -116,27 +116,27 @@ function Char(props) {
 
   useEffect(() => {
     if (props.card.id === 1) {
-      setClickedId(value_irritabillity - 1);
+      setClickedId(value_mania);
     }
 
     if (props.card.id === 2) {
-      setClickedId(value_mania - 1);
+      setClickedId(value_irritabillity);
     }
 
     if (props.card.id === 3) {
-      setClickedId(value_anxiety - 1);
+      setClickedId(value_anxiety);
     }
 
     if (props.card.id === 4) {
-      setClickedId(value_panic - 1);
+      setClickedId(value_panic);
     }
 
     if (props.card.id === 5) {
-      setClickedId(value_despondency - 1);
+      setClickedId(value_despondency);
     }
 
     if (props.card.id === 6) {
-      setClickedId(value_depression - 1);
+      setClickedId(value_depression);
     }
   }, [props.card.id, value_anxiety, value_irritabillity, value_mania, value_despondency, value_panic, value_depression])
 
@@ -160,7 +160,6 @@ function Char(props) {
   //     document.removeEventListener('keydown', handleEscapeClosePopup);
   //   }
   // }, [isClickPopupButton, handleSwitchStatePopupInfo]);
-
   return (
     <>
       <div className="char">
@@ -176,43 +175,52 @@ function Char(props) {
             <button
               onClick={(evt) => handleClick(0, evt)}
               className={clickedId >= 0 ? 'char__button char__button_type_active' : 'char__button'}
-              value={1}
+              value={0}
             >
               0%
             </button>
           </li>
           <li className="char__item">
             <button
-              onClick={(evt) => handleClick(1, evt)}
-              className={clickedId >= 1 ? 'char__button char__button_type_active' : 'char__button'}
-              value={2}
+              onClick={(evt) => handleClick(20, evt)}
+              className={clickedId >= 20 ? 'char__button char__button_type_active' : 'char__button'}
+              value={20}
             >
-              25%
+              20%
             </button>
           </li>
           <li className="char__item">
             <button
-              onClick={(evt) => handleClick(2, evt)}
-              className={clickedId >= 2 ? 'char__button char__button_type_active' : 'char__button'}
-              value={3}
+              onClick={(evt) => handleClick(40, evt)}
+              className={clickedId >= 40 ? 'char__button char__button_type_active' : 'char__button'}
+              value={40}
             >
-              50%
+              40%
             </button>
           </li>
           <li className="char__item">
             <button
-              onClick={(evt) => handleClick(3, evt)}
-              className={clickedId >= 3 ? 'char__button char__button_type_active' : 'char__button'}
-              value={4}
+              onClick={(evt) => handleClick(60, evt)}
+              className={clickedId >= 60 ? 'char__button char__button_type_active' : 'char__button'}
+              value={60}
             >
-              75%
+              60%
             </button>
           </li>
           <li className="char__item">
             <button
-              onClick={(evt) => handleClick(4, evt)}
-              className={clickedId >= 4 ? 'char__button char__button_type_active' : 'char__button'}
-              value={5}
+              onClick={(evt) => handleClick(80, evt)}
+              className={clickedId >= 80 ? 'char__button char__button_type_active' : 'char__button'}
+              value={80}
+            >
+              80%
+            </button>
+          </li>
+          <li className="char__item">
+            <button
+              onClick={(evt) => handleClick(100, evt)}
+              className={clickedId >= 100 ? 'char__button char__button_type_active' : 'char__button'}
+              value={100}
             >
               100%
             </button>

@@ -10,7 +10,7 @@
 @media (max-width: 991px) {
   #chart-div {
     /* max-width: 700px; */
-    width: 80vw;
+    width: 95vw;
   }
 }
 
@@ -18,7 +18,7 @@
   #chart-div {
     /* max-width: 500px; */
     height: 23.3vh;
-    width: 90vw;
+    width: 95vw;
   }
 }
 

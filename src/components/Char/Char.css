@@ -169,6 +169,15 @@
     top: 2.2em;
     font-size: 1.2em;
   }
+
+  .char__item {
+    border: .1em solid #19b2e6;
+    border-right: none;
+  }
+
+  .char__item:last-of-type {
+    border-right: .1em solid #19b2e6;
+  }
 }
 
 @media (max-width: 400px) {
@@ -186,5 +195,6 @@
 
   .char__text-content {
     margin-bottom: 0.5em;
+    margin-top: 0;
   }
 }
