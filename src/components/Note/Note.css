@@ -1,0 +1,81 @@
+.note__form {
+  width: 100%;
+  max-width: 49vw;
+  margin: 44px auto 0;
+  padding: 0;
+}
+
+.note__form-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.note__form-button {
+  border: none;
+  background-color: rgba(255, 255, 255, 1);
+  font-weight: 400;
+  font-size: 18px;
+  color: rgba(25, 178, 230, 1);
+  letter-spacing: -.4px;
+}
+
+.note__form-button:hover {
+  cursor: pointer;
+}
+
+.note__form-button-back {
+  background: url('../../images/icon-back.svg') no-repeat center/cover;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: 39px;
+  height: 39px;
+}
+
+.note__form-title {
+  font-weight: 400;
+  font-size: 24px;
+  color: rgba(17, 38, 60, 1);
+  margin: 0 0 12px;
+  padding: 0;
+}
+
+.note__form-date {
+  font-weight: 500;
+  font-size: 16px;
+  color: rgba(75, 75, 95, 1);
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.note__form-input {
+  width: 100%;
+  font-weight: 400;
+  font-size: 16px;
+  margin: 0;
+  padding: 16px 0 0;
+  border: none;
+  border-top: 1px solid rgba(239, 238, 240, 1);
+  outline: none;
+  height: 400px;
+}
+
+@media (max-width: 840px) {
+  .note__form {
+    max-width: 353px;
+  }
+}
+
+@media (max-width: 540px) {
+  .note__form-button {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 370px) {
+  .note__form {
+    max-width: 95vw;
+  }
+}

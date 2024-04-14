@@ -6,10 +6,7 @@ function ButtonPercent(props) {
   useEffect(() => {
     if (props.cardId === 1) {
       props.setIrritabillity(props.clickedId + 1);
-      // localStorage.setItem('irritabillity-value', props.irritabillity)
-      // props.irritabillityValue(props.clickedId + 1)
     }
-    console.log(props.irritabillityValue)
 
     if (props.cardId === 2) {
       props.setMania(props.clickedId + 1)

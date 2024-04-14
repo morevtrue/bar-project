@@ -9,6 +9,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PopupInfo from '../PopupInfo/PopupInfo';
 import PopupLogout from '../PopupLogout/PopupLogout';
+import Note from '../Note/Note';
 import { api } from '../../utils/Api';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { date } from '../../utils/constants';
@@ -97,16 +98,13 @@ function App(props) {
       .then((res) => {
         if (res) {
           actionCreatorLoggedIn(true);
-          // setIsLoggedIn(true);
         } else {
-          // setIsLoggedIn(false);
           actionCreatorLoggedIn(false);
           navigate("/sign-in", { replace: true });
         }
       })
       .catch((err) => {
         console.log(err);
-        // setIsLoggedIn(false);
         actionCreatorLoggedIn(false);
         navigate("/sign-in", { replace: true });
       })
@@ -148,24 +146,16 @@ function App(props) {
     if (value_loggedIn) {
       Promise.all([api.getEmotionsState(), api.getProfileContent()])
         .then(([emotion, info]) => {
-          // setEmotionList(emotion);
           actionCreatorEmotionList(emotion)
           setCurrentUser(info);
-          console.log(emotion)
           const latestEmotion = emotion.find(item => {
             return Intl.DateTimeFormat('ru').format(item.date) === date ? item : undefined;
           })
 
-          // const latestEmotion = emotion.at(-1);
-
           if (latestEmotion !== undefined) {
             const dateNow = Intl.DateTimeFormat('ru').format(latestEmotion.date);
-            // if (emotion.length === 0) {
-            //   createEmotionListToday();
-            // } else 
             if (dateNow !== date) {
               createEmotionListToday();
-              console.log('tic1')
             } else if (dateNow === date) {
               setEmotionToday(emotion.at(-1));
               actionCreatorIrritabillity(latestEmotion.irritabillity);
@@ -178,7 +168,6 @@ function App(props) {
             }
           } else {
             createEmotionListToday();
-            console.log('tic2')
           }
 
         })
@@ -187,8 +176,6 @@ function App(props) {
 
 
   }, [value_loggedIn, actionCreatorAnxiety, actionCreatorDepression, actionCreatorDespondency, actionCreatorIrritabillity, actionCreatorMania, actionCreatorPanic, actionCreatorEmotionList, actionCreatorText, createEmotionListToday, setEmotionToday]);
-
-  console.log(emotionToday)
 
   useEffect(() => {
     if (emotionToday !== undefined && value_loggedIn === true) {
@@ -353,6 +340,15 @@ function App(props) {
                 element={Calendar}
                 emotionToday={emotionToday}
                 // emotionList={emotionList}
+                loggedIn={value_loggedIn}
+              />
+            }
+          />
+          <Route
+            path="/calendar/note"
+            element={
+              <ProtectedRoute
+                element={Note}
                 loggedIn={value_loggedIn}
               />
             }

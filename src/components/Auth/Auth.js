@@ -2,15 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import './Auth.css';
 import { useFormWithValidation } from '../../utils/useForm';
-import logo from '../../images/logo.png';
 
 function Auth(props) {
   const { values, handleChange, errors, isValid } = useFormWithValidation();
   const [errReg, setErrReg] = React.useState(false);
   const [errLogin, setErrLogin] = React.useState(false);
-  // const [valueLogin, setValueLogin] = useState('');
-  // const [valuePassword, setValuePassword] = useState('');
-  // const [valuePasswordRepeat, setValuePasswordRepeat] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [isCheckPassword, setIsCheckPassword] = useState(false);
 
@@ -27,18 +23,6 @@ function Auth(props) {
       setPasswordCheck('');
     }
   }, [values.password, values.passwordRepeat, props.isRegister])
-
-  // function handleChangeValueLogin(evt) {
-  //   setValueLogin(evt.target.value);
-  // }
-
-  // function handleChangeValuePassword(evt) {
-  //   setValuePassword(evt.target.value);
-  // }
-
-  // function handleChangeValuePasswordRepeat(evt) {
-  //   setValuePasswordRepeat(evt.target.value);
-  // }
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -61,20 +45,6 @@ function Auth(props) {
     }
   }
 
-  // const handleClickSubmit = React.useEffect(() => {
-  //   if (props.isBadRequest || props.conflictErr) {
-  //     setErrReg(true);
-  //   } else {
-  //     setErrReg(false);
-  //   }
-
-  //   if (props.isBadRequestLogin || props.isUnathorized) {
-  //     setErrLogin(true);
-  //   } else {
-  //     setErrLogin(false);
-  //   }
-  // }, [props])
-
   function handleChangeInput(evt) {
     handleChange(evt);
     setErrLogin(false);
@@ -84,9 +54,6 @@ function Auth(props) {
   return (
     <section className="auth">
       <div className="auth__content">
-        <div className="auth__content-logo">
-          <img src={logo} alt="логотип сайта" className="auth__logo" />
-        </div>
         <form className="auth__form" name="authForm" onSubmit={handleSubmit}>
           <div className="auth__form-content">
             <h1 className="auth__form-title">{props.helloText}</h1>

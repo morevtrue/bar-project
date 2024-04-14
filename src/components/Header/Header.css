@@ -15,7 +15,7 @@
   margin: 1em 0 0;
 }
 
-@media (max-width: 821px) {
+@media (max-width: 840px) {
   .header {
     justify-content: center;
   }

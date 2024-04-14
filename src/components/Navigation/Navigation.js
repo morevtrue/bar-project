@@ -1,44 +1,73 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import './Navigation.css';
 import { Link } from "react-router-dom";
-import iconToday from '../../images/icon-today.png';
-import iconCalendar from '../../images/icon-calendar.png';
-import iconStat from '../../images/icon-stat.png';
-import iconProfile from '../../images/icon-profile.png';
+import { ReactComponent as IconToday } from '../../images/icon-today.svg';
+import { ReactComponent as IconCalendar } from '../../images/icon-calendar.svg';
+import { ReactComponent as IconStat } from '../../images/icon-stat.svg';
+import { ReactComponent as IconProfile } from '../../images/icon-profile.svg';
 
 function Navigation(props) {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = (event) => {
+      setWidth(event.target.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <nav className={`
       navigation
       ${props.header ? 'navigation_type_header' : ''}
       ${props.footer ? 'navigation_type_footer' : ''}
     `}>
-      <ul className="navigation__menu-links">
-        <li className={`navigation__menu-item ${props.today ? 'navigation__menu-item_type_active' : ''}`}>
-          <Link to="/" className={`navigation__menu-link ${props.today ? 'navigation__menu-link_type_active' : ''}`}>
-            <img src={iconToday} alt="иконка меню" className="navigation__menu-img" />
-            Сегодня
-          </Link>
-        </li>
-        <li className={`navigation__menu-item ${props.calendar ? 'navigation__menu-item_type_active' : ''}`}>
-          <Link to="/calendar" className={`navigation__menu-link ${props.calendar ? 'navigation__menu-link_type_active' : ''}`}>
-            <img src={iconCalendar} alt="иконка меню" className="navigation__menu-img" />
-            Календарь
-          </Link>
-        </li>
-        <li className={`navigation__menu-item ${props.stat ? 'navigation__menu-item_type_active' : ''}`}>
-          <Link to="/statistics" className={`navigation__menu-link ${props.stat ? 'navigation__menu-link_type_active' : ''}`}>
-            <img src={iconStat} alt="иконка меню" className="navigation__menu-img" />
-            Статистика
-          </Link>
-        </li>
-        <li className={`navigation__menu-item ${props.profile ? 'navigation__menu-item_type_active' : ''}`}>
-          <Link to="/profile" className={`navigation__menu-link ${props.profile ? 'navigation__menu-link_type_active' : ''}`}>
-            <img src={iconProfile} alt="иконка меню" className="navigation__menu-img" />
-            Профиль
-          </Link>
-        </li>
-      </ul>
+      <div className="navigation__menu">
+        <ul className="navigation__menu-links">
+          {
+          width > 840 && 
+          <li className="navigation__menu-item navigation__menu-item_type_test">
+            <Link to="/" className={`navigation__menu-link navigation__menu-test ${props.today ? 'navigation__menu-link_type_active navigation__menu-link_type_active-test' : ''}`}>
+              <p className="navigation__menu-text">Тест</p>
+            </Link>
+          </li>
+        }
+          <li className={`navigation__menu-item`}>
+            <Link to="/calendar" className={`navigation__menu-link ${props.calendar ? 'navigation__menu-link_type_active' : ''}`}>
+              {
+                width < 841 ? <IconCalendar alt="иконка меню" className={`navigation__menu-img ${!props.calendar ? 'navigation__menu-inactive' : ''}`} /> :               <p className="navigation__menu-text">Календарь</p>
+              }
+            </Link>
+          </li>
+          <li className={`navigation__menu-item ${props.stat ? 'navigation__menu-item_type_active' : ''}`}>
+            <Link to="/statistics" className={`navigation__menu-link ${props.stat ? 'navigation__menu-link_type_active' : ''}`}>
+            {
+                width < 841 ? <IconStat alt="иконка меню" className={`navigation__menu-img ${!props.stat ? 'navigation__menu-inactive' : ''}`} /> :               <p className="navigation__menu-text">Статистика</p>
+              }
+            </Link>
+          </li>
+          <li className={`navigation__menu-item ${props.profile ? 'navigation__menu-item_type_active' : ''}`}>
+            <Link to="/profile" className={`navigation__menu-link ${props.profile ? 'navigation__menu-link_type_active' : ''}`}>
+            {
+                width < 841 ? <IconProfile alt="иконка меню" className={`navigation__menu-img ${!props.profile ? 'navigation__menu-inactive' : ''}`} /> :               <p className="navigation__menu-text">Профиль</p>
+              }
+            </Link>
+          </li>
+        </ul>
+        {
+          width < 841 && <ul className="navigation__menu-links navigation__menu-links_type_test">
+          <li className="navigation__menu-item navigation__menu-item_type_test">
+            <Link to="/" className={`navigation__menu-link navigation__menu-test ${props.today ? 'navigation__menu-link_type_active navigation__menu-link_type_active-test' : ''}`}>
+              <IconToday alt="иконка меню" className={`navigation__menu-img ${props.today ? 'navigation__menu-active-test' : ''}`} />
+              <p className="navigation__menu-text">Тест</p>
+            </Link>
+          </li>
+        </ul>
+        }
+      </div>
     </nav>
   )
 }

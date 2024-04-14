@@ -9,7 +9,7 @@ function Register(props) {
         onSubmitRegister={props.onSubmit}
         helloText="Добро пожаловать!"
         buttonText="Зарегистрироваться"
-        authText="Уже зарегистрированы?"
+        authText="Есть аккаунт?"
         authLogin="Войти"
         link="/sign-in"
         isRegister={true}

@@ -8,56 +8,29 @@ import { registerLocale } from "react-datepicker";
 import ru from 'date-fns/locale/ru';
 import Footer from "../Footer/Footer";
 import WheelOfLife from "../WheelOfLife/WheelOfLife";
-import { api } from "../../utils/Api";
-import ShareButton from "../ShareButton/ShareButton";
+import { Link } from 'react-router-dom';
+import actionCreatorDate from "../../store/actionCreators/actionCreatorDate";
+import actionCreatorEmotionList from "../../store/actionCreators/actionCreatorEmotionList";
+
 
 function Calendar(props) {
   const {
     value_emotionList,
-    value_text,
+    actionCreatorDate,
+    actionCreatorEmotionList,
   } = props;
   const [startDate, setStartDate] = useState(new Date());
-  const [inputText, setInputText] = useState(value_text || '');
   registerLocale('ru', ru);
   const [emotionCurrent, setEmotionCurrent] = useState({});
-  const [buttonText, setButtonText] = useState('Сохранить заметку');
-  const [isSaveButton, setIsSaveButton] = useState(false);
-
-  function handleChangeInput(evt) {
-    setInputText(evt.target.value);
-  }
-
-  useEffect(() => {
-    if (inputText !== value_text) {
-      setIsSaveButton(false);
-      setButtonText('Сохранить заметку');
-    }
-  }, [inputText, value_text])
-
-  function handleSubmitText(evt) {
-    evt.preventDefault();
-    setButtonText('Подождите...')
-    api.
-      updateEmotionState({
-        text: inputText,
-        emotionId: emotionCurrent._id,
-      }).finally(() => {
-        setButtonText('Заметка сохранена!');
-        setIsSaveButton(true);
-      })
-  }
 
   useEffect(() => {
     let currentDate = startDate.toLocaleDateString();
     const emotion = value_emotionList.find(item => {
       return currentDate === Intl.DateTimeFormat('ru').format(item.date) && item;
     })
+    actionCreatorDate(currentDate);
     setEmotionCurrent(emotion);
-    if (emotion !== undefined) {
-      setInputText(emotion.text);
-    }
-  }, [startDate, value_emotionList])
-  console.log(emotionCurrent)
+  }, [startDate, value_emotionList, actionCreatorEmotionList])
 
   return (
     <>
@@ -81,24 +54,13 @@ function Calendar(props) {
           despondency={emotionCurrent !== undefined ? emotionCurrent.despondency : 0}
           depression={emotionCurrent !== undefined ? emotionCurrent.depression : 0}
         />
-        <form className={`calendar__form ${emotionCurrent !== undefined ? 'calendar__form_type_active' : ''}`} name="calendarForm" onSubmit={handleSubmitText}>
-          <h2 className="calendar__form-title">
-            Ваша заметка в этот день:
-          </h2>
-          <textarea
-            type="text"
-            name="calendarFormInput"
-            className="calendar__form-input"
-            id="calendar-form-input"
-            placeholder="Напишите свою заметку здесь..."
-            value={inputText || ''}
-            onChange={handleChangeInput}
-          />
-          <button className={`calendar__form-button ${isSaveButton ? 'calendar__form-button_type_save' : ''}`} disabled={isSaveButton}>
-            {buttonText}
-          </button>
-        </form>
-        <ShareButton />
+        {emotionCurrent !== undefined ? (emotionCurrent.text === '' ? <Link to="/calendar/note" className="calendar__button">Создать заметку</Link> : <div className="calendar__note">
+          <h2 className="calendar__note-title">Заметка: {startDate.toLocaleDateString()}</h2>
+          <Link to="/calendar/note" className="calendar__note-edit"></Link>
+        </div>) : <div className="calendar__note">
+          <h2 className="calendar__note-title">Нет заметок</h2>
+        </div>}
+            
       </main>
       <Footer calendar={true} />
     </>
@@ -113,9 +75,16 @@ const mapStateToProps = state => ({
   value_despondency: state.value_despondency,
   value_depression: state.value_depression,
   value_text: state.value_text,
-  value_emotionList: state.value_emotionList
+  value_emotionList: state.value_emotionList,
+  value_date: state.value_date
+})
+
+const mapDispatchToProps = dispatch => ({
+  actionCreatorDate: value => dispatch(actionCreatorDate(value)),
+  actionCreatorEmotionList: value => dispatch(actionCreatorEmotionList(value))
 })
 
 export default connect(
   mapStateToProps,
+  mapDispatchToProps
 )(Calendar);

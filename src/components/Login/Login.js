@@ -12,10 +12,10 @@ function Login(props) {
         isBadRequestLogin={props.errBadRequestLogin}
         isBadRequestLoginText="Переданы некорректные данные при авторизации."
         isLogin={true}
-        helloText="Рады видеть!"
+        helloText="Добро пожаловать!"
         buttonText="Войти"
-        authText="Ещё не зарегистрированы?"
-        authLogin="Регистрация"
+        authText="Нет аккаунта?"
+        authLogin="Создать"
         link="/sign-up"
         errEmail={props.errEmailLogin}
       />

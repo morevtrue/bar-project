@@ -11,6 +11,9 @@
   align-items: center;
   margin: 1em 0;
   position: relative;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 90vw;
 }
 
 .char__title {
@@ -142,17 +145,18 @@
   }
 
   .char__title {
-    font-size: 1.5em;
+    font-size: 1.6em;
+    font-weight: 400;
   }
 
   .char__show-more-button {
-    width: 2em;
-    height: 2em;
+    width: 2.4em;
+    height: 2.4em;
   }
 
   .char__buttons {
-    margin: 0 0 1.5em;
-    max-width: 80vw;
+    margin: 0 0 2.4em;
+    max-width: 90vw;
   }
 
   .char__button {
@@ -161,6 +165,7 @@
 
   .char__text-content {
     align-self: flex-start;
+    justify-content: space-between;
   }
 
   .char__popup-text {
@@ -186,11 +191,7 @@
   }
 
   .char__title {
-    font-size: 1.3em;
-  }
-
-  .char__buttons {
-    margin: 0 0 1em;
+    font-size: 1.6em;
   }
 
   .char__text-content {

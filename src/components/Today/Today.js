@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import './Today.css';
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -10,10 +10,13 @@ function Today(props) {
 
   return (
     <>
-      <Header isToday={true} today={true} />
+      <Header
+        today={true} />
       <main className="today">
-        <h1 className="today__title">Сегодня: {date}</h1>
-        <p className="today__text">Как ваше самочувствие?</p>
+        <div className="today__content">
+          <h1 className="today__title">Как ваше самочувствие?</h1>
+          <p className="today__text">Сегодня: {date}</p>
+        </div>
         {
           infoData.map(card => (
             <Char

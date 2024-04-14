@@ -26,11 +26,6 @@ function Profile(props) {
   const [valueAnotherPhone, setValueAnotherPhone] = useState('');
   const [valueDate, setValueDate] = useState('');
 
-
-  // function signOut() {
-  //   props.onLogoutProfile();
-  // }
-
   useEffect(() => {
     if (props.loggedIn) {
       setValueName(currentUser.name);
@@ -153,21 +148,26 @@ function Profile(props) {
     <>
       <Header profile={true} />
       <main className="profile">
-        {/* <div className="profile__content-sos">
-          <p className="profile__button-text">Если вам нужна помощь, нажмите на кнопку ниже:</p>
-          <button className="profile__button-sos"></button>
-        </div> */}
         <form className="profile__form" name="profileForm" onSubmit={handleSubmitForm}>
           <h1 className="profile__form-title">Ваш профиль</h1>
-          <label htmlFor="profile-input-name" className="profile__form-label">Имя</label>
+          <label htmlFor="profile-input-name" className="profile__form-label">Ваше имя</label>
           <input
             type="text"
             name="profileInputName"
             className="profile__form-input"
             id="profile-input-name"
-            placeholder="Ваше имя..."
+            placeholder="Введите ваше имя..."
             value={valueName || ''}
             onChange={handleChangeName}
+          />
+          <label htmlFor="profile-input-date" className="profile__form-label">Дата рождения</label>
+          <input
+            type="date"
+            name="profileInputDate"
+            className="profile__form-input"
+            id="profile-input-date"
+            value={valueDate || ''}
+            onChange={handleChangeDate}
           />
           <div className="profile__form-fieldset">
             <p className="profile__form-text-gender">Пол:</p>
@@ -217,15 +217,6 @@ function Profile(props) {
             defaultCountry="RU"
             className="profile__form-input"
             labels={ru}
-          />
-          <label htmlFor="profile-input-date" className="profile__form-label">Дата рождения</label>
-          <input
-            type="date"
-            name="profileInputDate"
-            className="profile__form-input"
-            id="profile-input-date"
-            value={valueDate || ''}
-            onChange={handleChangeDate}
           />
           <button className={`profile__button ${props.isActiveButtonSubmit ? 'profile__button_type_active' : ''}`} disabled={props.isActiveButtonSubmit}>Сохранить</button>
           <button className="profile__button profile__button_type_exit" onClick={props.onClickExit}>Выйти из профиля</button>
