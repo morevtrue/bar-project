@@ -209,7 +209,7 @@ function Profile(props) {
           />
           <label htmlFor="profile-input-otherPhone" className="profile__form-label">Телефон доверенного лица</label>
           <PhoneInput
-            placeholder="Ваш номер телефона..."
+            placeholder="Введите номер телефона..."
             id="profile-input-otherPhone"
             name="profileInputOtherPhone"
             value={valueAnotherPhone || ''}

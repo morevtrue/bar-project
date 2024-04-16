@@ -160,7 +160,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 0;
-    margin-bottom: 78px;
+    margin-bottom: 100px;
   }
 
   .react-datepicker__month-container {
@@ -181,8 +181,9 @@
   }
 
   .react-datepicker .react-datepicker__navigation {
-    width: 28px;
-    height: 28px;
+    max-width: 28px;
+    max-height: 28px;
+    min-height: 28px;
   }
 
   .calendar__button {
@@ -191,16 +192,13 @@
 }
 
 @media (max-width: 400px) {
-  .calendar {
-    margin-bottom: 38px;
-  }
 
   .react-datepicker__header .react-datepicker__day-name {
-    padding: 7.5px;
+    padding: 5px;
   }
 
   .react-datepicker__week .react-datepicker__day {
-    padding: 7.5px;
+    padding: 5px;
   }
 }
 

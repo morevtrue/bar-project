@@ -53,9 +53,9 @@
 
 }
 
-@media (max-width: 360px) {
+@media (max-width: 400px) {
   .wheel-of-life {
-    min-height: 280px;
-    max-width: 310px;
+    min-height: 273px;
+    max-width: 277px;
   }
 }
