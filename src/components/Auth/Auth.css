@@ -38,11 +38,12 @@
 .auth__form {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin: 0;
   padding: 0;
   width: 100%;
   max-width: 321px;
-  min-height: 52.9vh;
+  min-height: 56vh;
 }
 
 .auth__form-content {
@@ -95,6 +96,10 @@
   transition: border-bottom .5s linear;
   color: rgba(130, 143, 157, 1);
   outline: none;
+}
+
+.auth__form-input-content_type_hidden {
+  visibility: hidden;
 }
 
 .auth__form-input-login-err {
@@ -187,7 +192,7 @@ input::-webkit-input-placeholder {
 }
 
 .auth__form-password-error {
-  color: rgb(255, 230, 0);
+  color: #30BA48;
   font-size: 13px;
   font-weight: 500;
   height: 26px;
@@ -195,6 +200,24 @@ input::-webkit-input-placeholder {
 
 .auth__form-password-error_type_active {
   color: rgb(255, 2, 2);
+}
+
+@media (max-height: 1027px) {
+  .auth__form {
+    min-height: 70vh;
+  }
+}
+
+@media (max-height: 820px) {
+  .auth__form {
+    min-height: 80vh;
+  }
+}
+
+@media (max-height: 710px) {
+  .auth__form {
+    min-height: 97.5vh;
+  }
 }
 
 @media (max-width: 540px) {

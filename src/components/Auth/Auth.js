@@ -94,7 +94,7 @@ function Auth(props) {
                 </span>
               </li>
               {
-                props.isRegister && <li className="auth__form-input-content">
+                props.isRegister && <li className={`auth__form-input-content ${!props.isRegister ? 'auth__form-input-content_type_hidden' : ''}`}>
                   <label htmlFor="auth-form-repeatPassword" className="auth__form-label">Повторите пароль</label>
                   <input
                     type="password"

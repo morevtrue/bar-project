@@ -1,0 +1,25 @@
+.loading-view {
+  width: 100%;
+  min-height: 100%;
+  background-color: rgba(25, 178, 230, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-view__image {
+  width: 100%;
+  max-width: 190px;
+  min-height: 215px;
+  object-fit: cover;
+  margin-bottom: 24px;
+}
+
+.loading-view__title {
+  color: rgba(250, 250, 250, 1);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 44px;
+  letter-spacing: -.4px;
+}

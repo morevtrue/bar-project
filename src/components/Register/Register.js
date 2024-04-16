@@ -7,7 +7,7 @@ function Register(props) {
     <main className="register">
       <Auth
         onSubmitRegister={props.onSubmit}
-        helloText="Добро пожаловать!"
+        helloText="Регистрация"
         buttonText="Зарегистрироваться"
         authText="Есть аккаунт?"
         authLogin="Войти"
