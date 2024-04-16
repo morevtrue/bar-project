@@ -115,7 +115,8 @@
 
 @media (max-width: 540px) {
   .statistics {
-    gap: 10px;
+    gap: 5px;
+    margin-top: 5px;
   }
 
   .statistics__month-next,
@@ -130,6 +131,7 @@
 
   .statistics__data {
     gap: 0;
+    margin-top: 10px;
   }
 
   .statistics__graphic-name {

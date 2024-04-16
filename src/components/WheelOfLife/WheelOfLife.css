@@ -43,6 +43,8 @@
 
   .wheel-of-life_type_stat {
     height: 30vh;
+    min-height: 270px;
+    max-height: 270px;
     max-width: 353px;
   }
 
