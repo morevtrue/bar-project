@@ -169,31 +169,31 @@ function Profile(props) {
             value={valueDate || ''}
             onChange={handleChangeDate}
           />
+          <p className="profile__form-label">Пол</p>
           <div className="profile__form-fieldset">
-            <p className="profile__form-text-gender">Пол:</p>
             <div className="profile__form-gender">
-              <label htmlFor="profile-input-radio-men" className="profile__form-label">{valueGender[0].value}</label>
               <input
                 onChange={handleChangeGender}
                 checked={valueGender[0].active}
                 value={valueGender[0].value || ''}
                 type="radio"
                 name="profileInputRadio"
-                className="profile__form-input profile__form-gender"
+                className="profile__form-input profile__form-gender custom-checkbox"
                 id="profile-input-radio-men"
               />
+              <label htmlFor="profile-input-radio-men" className="profile__form-label">{valueGender[0].value}</label>
             </div>
             <div className="profile__form-gender">
-              <label htmlFor="profile-input-radio-women" className="profile__form-label">{valueGender[1].value}</label>
               <input
                 onChange={handleChangeGender}
                 checked={valueGender[1].active}
                 value={valueGender[1].value || ''}
                 type="radio"
                 name="profileInputRadio"
-                className="profile__form-input profile__form-gender"
+                className="profile__form-input profile__form-gender custom-checkbox"
                 id="profile-input-radio-women"
               />
+              <label htmlFor="profile-input-radio-women" className="profile__form-label">{valueGender[1].value}</label>
             </div>
           </div>
           <label htmlFor="profile-input-phone" className="profile__form-label">Ваш телефон</label>

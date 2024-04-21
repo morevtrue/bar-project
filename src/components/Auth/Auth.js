@@ -119,7 +119,7 @@ function Auth(props) {
             </span>
             <button
               type="submit"
-              className={`auth__form-button ${!isValid || errReg || errLogin || isCheckPassword || props.errEmail === values.email ? 'auth__form-button_type_disabled' : ''}`}
+              className={`auth__form-button ${!isValid || errReg || errLogin || isCheckPassword || props.errEmail === values.email || errors.email ? 'auth__form-button_type_disabled' : ''}`}
               disabled={!isValid || errLogin || errReg || (isCheckPassword && props.isRegister) || props.errEmail === values.email}>
               {props.buttonText}
             </button>
