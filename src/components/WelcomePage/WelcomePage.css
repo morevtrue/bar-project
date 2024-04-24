@@ -1,0 +1,116 @@
+.welcome-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.welcome-page__content {
+  background: url(../../images/background-welcome.svg) no-repeat center;
+  background-size: 100% 100%;
+  width: 100%;
+  max-width: 393px;
+  /* position: relative; */
+  min-height: 482px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.welcome-page__image {
+  width: 100%;
+  max-width: 345px;
+  object-fit: cover;
+  display: flex;
+  vertical-align: middle;
+  background: url(../../images/background-img-wlcm.png) no-repeat center;
+  background-size: 95%;
+  background-position: 20px;
+}
+
+.welcome-page__button-exit {
+  display: flex;
+  align-self: flex-end;
+  border: none;
+  background: none;
+  color: rgba(255, 255, 255, 1);
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: -.4px;
+  margin-right: 36px;
+  padding: 0;
+  outline: none;
+  opacity: 1;
+}
+
+.welcome-page__button-exit:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.welcome-page__title {
+  text-align: center;
+  width: 100%;
+  max-width: 353px;
+  min-height: 72px;
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing: -1px;
+  color: rgba(17, 38, 60, 1);
+  padding: 0;
+  margin: -84px 0 0;
+}
+
+.welcome-page__footer-content {
+  width: 100%;
+  max-width: 228px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcome-page__button-next {
+  width: 100%;
+  max-width: 228px;
+  padding: 12px 0;
+  margin: 0;
+  background-color: rgba(25, 178, 230, 1);
+  min-height: 43px;
+  font-weight: 400;
+  font-size: 16px;
+  color: rgba(250, 250, 250, 1);
+  border: none;
+  border-radius: 24px;
+  outline: none;
+  opacity: 1;
+}
+
+.welcome-page__button-next:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.welcome-page__points {
+  width: 100%;
+  max-width: 63px;
+  min-height: 12px;
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+}
+
+.welcome-page__point {
+  width: 12px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(222, 221, 221, 1);
+}
+
+.welcome-page__point_active {
+  background-color: rgba(17, 106, 204, 1);
+}

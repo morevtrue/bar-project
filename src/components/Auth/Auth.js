@@ -46,6 +46,9 @@ function Auth(props) {
   }
 
   function handleChangeInput(evt) {
+    if (props.isRegister) {
+      props.setIsFirstAuth(true);
+    }
     handleChange(evt);
     setErrLogin(false);
     setErrReg(false);

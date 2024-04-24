@@ -1,11 +1,12 @@
 import React from "react";
 import './LoadingView.css';
+import { ReactComponent as Icon } from '../../images/icon-project.svg';
 
-function LoadingView () {
+function LoadingView(props) {
   return (
     <>
-      <section className="loading-view">
-        <img src="../../images/icon-project.svg" alt="иконка проекта" className="loading-view__image" />
+      <section className={`loading-view ${props.isLoading ? 'loading-view_active' : ''}`}>
+        <Icon alt="иконка проекта" className="loading-view__image" />
         <h1 className="loading-view__title">Дневник настроения</h1>
       </section>
     </>

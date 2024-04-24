@@ -10,6 +10,8 @@ import Login from '../Login/Login';
 import PopupInfo from '../PopupInfo/PopupInfo';
 import PopupLogout from '../PopupLogout/PopupLogout';
 import Note from '../Note/Note';
+import LoadingView from '../LoadingView/LoadingView';
+import WelcomePage from '../WelcomePage/WelcomePage';
 import { api } from '../../utils/Api';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { date } from '../../utils/constants';
@@ -47,6 +49,7 @@ function App(props) {
     actionCreatorLoggedIn,
   } = props;
 
+  const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
   // const [emotionList, setEmotionList] = useState([]);
   const [emotionToday, setEmotionToday] = useState({});
@@ -62,6 +65,7 @@ function App(props) {
   const [errBadRequest, setErrBadRequest] = useState(false);
   const [errEmail, setErrEmail] = useState('');
   const [errEmailLogin, setErrEmailLogin] = useState('');
+  const [isFirstAuth, setIsFirstAuth] = useState(false);
 
   function handleInfoClick(info) {
     setSelectedEmotion({
@@ -89,7 +93,10 @@ function App(props) {
 
   // ПРОВЕРКА ТОКЕНА
   useEffect(() => {
-    tokenCheck();
+    setTimeout(() => {
+      tokenCheck();
+      setIsLoading(false);
+    }, 1000)
   }, [])
 
   const tokenCheck = () => {
@@ -193,14 +200,15 @@ function App(props) {
 
   // РЕГИСТРАЦИЯ
   function handleSubmitRegister(password, login) {
+    setIsFirstAuth(true);
     api
       .register(password, login)
       .then((res) => {
-        navigate('/sign-in', { replace: true });
         if (res) {
           setErrBadRequest(false);
           setConflictErr(false);
           handleSubmitAuth(password, login);
+          navigate('/welcome', { replace: true });
         }
       })
       .catch((err) => {
@@ -221,7 +229,11 @@ function App(props) {
       .then((res) => {
         actionCreatorLoggedIn(true);
         // setIsLoggedIn(true);
-        navigate('/', { replace: true })
+        if (isFirstAuth) {
+          navigate('/welcome', { replace: true })
+        } else {
+          navigate('/', { replace: true })
+        }
         if (res) {
           setErrUnathorized(false);
           setErrBadRequestProfile(false);
@@ -291,102 +303,120 @@ function App(props) {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="app">
-        <Routes>
-          {
-            !value_loggedIn && <Route
-              path="/sign-in"
-              element={
-                <Login
-                  onSubmit={handleSubmitAuth}
-                  errUnathorized={errUnathorized}
-                  errBadRequestLogin={errBadRequestProfile}
-                  errEmailLogin={errEmailLogin}
+      {
+        isLoading
+          ? <LoadingView isLoading={isLoading} />
+          : <div className={`app ${!isLoading ? 'app_active' : ''}`}>
+              <Routes>
+                {
+                  !value_loggedIn && <Route
+                    path="/sign-in"
+                    element={
+                      <Login
+                        onSubmit={handleSubmitAuth}
+                        errUnathorized={errUnathorized}
+                        errBadRequestLogin={errBadRequestProfile}
+                        errEmailLogin={errEmailLogin}
+                      />
+                    }
+                  />
+                }
+                {
+                  !value_loggedIn && <Route
+                    path="/sign-up"
+                    element={
+                      <Register
+                        conflictErr={conflictErr}
+                        errBadRequest={errBadRequest}
+                        onSubmit={handleSubmitRegister}
+                        errEmail={errEmail}
+                        setIsFirstAuth={setIsFirstAuth}
+                      />
+                    }
+                  />
+                }
+                <Route
+                  path="/welcome"
+                  element={
+                    <ProtectedRoute
+                      element={WelcomePage}
+                      loggedIn={value_loggedIn}
+                      isFirstAuth={isFirstAuth}
+                    />
+                  }
                 />
-              }
-            />
-          }
-          {
-            !value_loggedIn && <Route
-              path="/sign-up"
-              element={
-                <Register
-                  conflictErr={conflictErr}
-                  errBadRequest={errBadRequest}
-                  onSubmit={handleSubmitRegister}
-                  errEmail={errEmail}
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute
+                      element={Profile}
+                      onUpdateUser={handleUpdateUser}
+                      onLogoutProfile={isClickExit}
+                      loggedIn={value_loggedIn}
+                      isActiveButtonSubmit={isActiveButtonSubmit}
+                      setIsActiveButtonSubmit={setIsActiveButtonSubmit}
+                      onClickExit={handleLogoutClick}
+                    />
+                  }
                 />
-              }
-            />
-          }
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute
-                element={Profile}
-                onUpdateUser={handleUpdateUser}
-                onLogoutProfile={isClickExit}
-                loggedIn={value_loggedIn}
-                isActiveButtonSubmit={isActiveButtonSubmit}
-                setIsActiveButtonSubmit={setIsActiveButtonSubmit}
-                onClickExit={handleLogoutClick}
-              />
-            }
-          />
-          <Route
-            path="/calendar"
-            element={
-              <ProtectedRoute
-                element={Calendar}
-                emotionToday={emotionToday}
-                // emotionList={emotionList}
-                loggedIn={value_loggedIn}
-              />
-            }
-          />
-          <Route
-            path="/calendar/note"
-            element={
-              <ProtectedRoute
-                element={Note}
-                loggedIn={value_loggedIn}
-              />
-            }
-          />
-          <Route
-            path="/statistics"
-            element={
-              <ProtectedRoute
-                element={Statistics}
-                // emotionList={emotionList}
-                loggedIn={value_loggedIn}
-              />
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute
-                element={Today}
-                loggedIn={value_loggedIn}
-                emotionToday={emotionToday}
-                setEmotionToday={setEmotionToday}
-                onInfoClick={handleInfoClick}
-              />
-            }
-          />
-          <Route
-            path="*"
-            element={
-              value_loggedIn
-                ? <Navigate to="/" replace />
-                : <Navigate to="/sign-in" replace />
-            }
-          />
-        </Routes>
-        <PopupInfo onClose={closePopupInfo} emotion={selectedEmotion} />
-        <PopupLogout onClose={closePopupLogout} onLogout={handleClearCookie} isOpen={isClickExit} />
-      </div>
+                <Route
+                  path="/calendar"
+                  element={
+                    <ProtectedRoute
+                      element={Calendar}
+                      emotionToday={emotionToday}
+                      // emotionList={emotionList}
+                      loggedIn={value_loggedIn}
+                    />
+                  }
+                />
+                <Route
+                  path="/calendar/note"
+                  element={
+                    <ProtectedRoute
+                      element={Note}
+                      loggedIn={value_loggedIn}
+                    />
+                  }
+                />
+                <Route
+                  path="/statistics"
+                  element={
+                    <ProtectedRoute
+                      element={Statistics}
+                      // emotionList={emotionList}
+                      loggedIn={value_loggedIn}
+                    />
+                  }
+                />
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute
+                      element={Today}
+                      loggedIn={value_loggedIn}
+                      emotionToday={emotionToday}
+                      setEmotionToday={setEmotionToday}
+                      onInfoClick={handleInfoClick}
+                    />
+                  }
+                />
+                <Route
+                  path="*"
+                  element={
+                    value_loggedIn
+                      ? (!isFirstAuth
+                            ? <Navigate to="/" replace />
+                            : <Navigate to="/welcome" replace />  
+                        )
+                      : <Navigate to="/sign-in" replace />
+                  }
+                />
+              </Routes>
+              <PopupInfo onClose={closePopupInfo} emotion={selectedEmotion} />
+              <PopupLogout onClose={closePopupLogout} onLogout={handleClearCookie} isOpen={isClickExit} />
+            </div>
+      }
     </CurrentUserContext.Provider>
   );
 }

@@ -18,6 +18,7 @@ function Register(props) {
         isBadRequestText="Переданы некорректные данные при создании пользователя."
         isConflictText="Такой пользователь уже существует"
         errEmail={props.errEmail}
+        setIsFirstAuth={props.setIsFirstAuth}
       />
     </main>
   )
