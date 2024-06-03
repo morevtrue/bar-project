@@ -126,8 +126,8 @@ export default class Api {
 }
 
 export const api = new Api({
-  // baseUrl: 'https://api.sla2324.fvds.ru',
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.mental-prosvet.ru',
+  // baseUrl: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json'
   }

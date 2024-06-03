@@ -12,7 +12,7 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=default"
       - "traefik.http.routers.bar-frontend.entrypoints=https"
-      - "traefik.http.routers.bar-frontend.rule=Host(`bar.sla2324.fvds.ru`)"
+      - "traefik.http.routers.bar-frontend.rule=Host(`calendar.mental-prosvet.ru`)"
       - "traefik.http.routers.bar-frontend.service=bar-frontend-service"
       - "traefik.http.services.bar-frontend-service.loadbalancer.server.port=80"
 

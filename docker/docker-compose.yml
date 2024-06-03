@@ -26,7 +26,7 @@ services:
     #Dashboard secure:
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.rule=Host(`traefik.sla2324.fvds.ru`)"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.mental-prosvet.ru`)"
       - "traefik.http.routers.dashboard.entrypoints=https"
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.routers.dashboard.middlewares=auth"
