@@ -72,7 +72,7 @@ function GraphicStateEkzogenic(props) {
         count: 1
       },
       renderer: am5xy.AxisRendererX.new(root, {
-        minGridDistance: 15,
+        minGridDistance: 20,
       }),
       tooltip: am5.Tooltip.new(root, {})
     }));

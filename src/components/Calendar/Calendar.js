@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './Calendar.css';
 import Header from "../Header/Header";
+import ShareButton from "../ShareButton/ShareButton";
 import { connect } from 'react-redux';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -54,12 +55,19 @@ function Calendar(props) {
           despondency={emotionCurrent !== undefined ? emotionCurrent.despondency : 0}
           depression={emotionCurrent !== undefined ? emotionCurrent.depression : 0}
         />
-        {emotionCurrent !== undefined ? (emotionCurrent.text === '' ? <Link to="/calendar/note" className="calendar__button">Создать заметку</Link> : <div className="calendar__note">
-          <h2 className="calendar__note-title">Заметка: {startDate.toLocaleDateString()}</h2>
-          <Link to="/calendar/note" className="calendar__note-edit"></Link>
-        </div>) : <div className="calendar__note">
-          <h2 className="calendar__note-title">Нет заметок</h2>
-        </div>}
+        <div className="calendar__buttons">
+          {emotionCurrent !== undefined ? (emotionCurrent.text === '' ? <Link to="/calendar/note" className="calendar__button">Создать заметку</Link> : <div className="calendar__note">
+            <h2 className="calendar__note-title">Заметка: {startDate.toLocaleDateString()}</h2>
+            <Link to="/calendar/note" className="calendar__note-edit"></Link>
+          </div>) : <div className="calendar__note">
+            <h2 className="calendar__note-title">Нет заметок</h2>
+          </div>}
+          <ShareButton 
+              label="Поделиться"
+              title="Поделиться состоянием"
+              text="Вы можете отправить скрин вашего текущего состояния доверенному лицу"
+          />
+        </div>
             
       </main>
       <Footer calendar={true} />

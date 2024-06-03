@@ -9,6 +9,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PopupInfo from '../PopupInfo/PopupInfo';
 import PopupLogout from '../PopupLogout/PopupLogout';
+import PopupProfile from '../PopupProfile/PopupProfile';
 import Note from '../Note/Note';
 import LoadingView from '../LoadingView/LoadingView';
 import WelcomePage from '../WelcomePage/WelcomePage';
@@ -57,6 +58,10 @@ function App(props) {
     text: '',
     isOpen: false,
   });
+  const [profileInfoPhoneText, setProfileInfoPhoneText] = useState({
+    text: '',
+    isOpen: false,
+  });
   const [isActiveButtonSubmit, setIsActiveButtonSubmit] = useState(true);
   const [isClickExit, setIsClickExit] = useState(false);
   const [conflictErr, setConflictErr] = useState(false);
@@ -74,6 +79,14 @@ function App(props) {
     })
   }
 
+  function handleInfoProfileClick() {
+    setProfileInfoPhoneText({
+      text: "Не обязательно для заполнения. В будущем планируется сервис, который будет предупреждать близких вам людей о проблемах в вашем эмоциональном состоянии, даже если вы будете не в силах об этом рассказать.",
+      isOpen: true,
+      }
+    )
+  }
+
   function handleLogoutClick() {
     setIsClickExit(true);
   }
@@ -83,6 +96,13 @@ function App(props) {
       text: emotion.text,
       isOpen: false,
     });
+  }
+
+  function closePopupProfile() {
+    setProfileInfoPhoneText({
+      text: "Не обязательно для заполнения. В будущем планируется сервис, который будет предупреждать близких вам людей о проблемах в вашем эмоциональном состоянии, даже если вы будете не в силах об этом рассказать.",
+      isOpen: false,
+    })
   }
 
   function closePopupLogout() {
@@ -301,6 +321,22 @@ function App(props) {
     }
   }, [selectedEmotion]);
 
+  useEffect(() => {
+    if (!profileInfoPhoneText.isOpen) return;
+    const handleEscapeClosePopup = (evt) => {
+      if (evt.key === 'Escape') {
+        setProfileInfoPhoneText({
+          text: '',
+          isOpen: false,
+        });
+      }
+    }
+    document.addEventListener('keydown', handleEscapeClosePopup);
+    return () => {
+      document.removeEventListener('keydown', handleEscapeClosePopup);
+    }
+  }, [profileInfoPhoneText]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       {
@@ -356,6 +392,7 @@ function App(props) {
                       isActiveButtonSubmit={isActiveButtonSubmit}
                       setIsActiveButtonSubmit={setIsActiveButtonSubmit}
                       onClickExit={handleLogoutClick}
+                      onClickPopup={handleInfoProfileClick}
                     />
                   }
                 />
@@ -415,6 +452,7 @@ function App(props) {
               </Routes>
               <PopupInfo onClose={closePopupInfo} emotion={selectedEmotion} />
               <PopupLogout onClose={closePopupLogout} onLogout={handleClearCookie} isOpen={isClickExit} />
+              <PopupProfile onClose={closePopupProfile} popupProfile={profileInfoPhoneText} />
             </div>
       }
     </CurrentUserContext.Provider>

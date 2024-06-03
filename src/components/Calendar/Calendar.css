@@ -108,6 +108,14 @@
   font-weight: 500;
 }
 
+.calendar__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  align-items: center;
+}
+
 .calendar__button {
   background-color: rgba(25, 178, 230, 1);
   border-radius: 24px;

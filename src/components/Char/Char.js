@@ -140,26 +140,6 @@ function Char(props) {
     }
   }, [props.card.id, value_anxiety, value_irritabillity, value_mania, value_despondency, value_panic, value_depression])
 
-  // const handleSwitchStatePopupInfo = useCallback(() => {
-  //   if (isClickPopupButton) {
-  //     setIsClickPopupButton(false);
-  //   } else {
-  //     setIsClickPopupButton(true);
-  //   }
-  // }, [isClickPopupButton])
-
-  // useEffect(() => {
-  //   if (!isClickPopupButton) return;
-  //   const handleEscapeClosePopup = (evt) => {
-  //     if (evt.key === 'Escape') {
-  //       handleSwitchStatePopupInfo();
-  //     }
-  //   }
-  //   document.addEventListener('keydown', handleEscapeClosePopup);
-  //   return () => {
-  //     document.removeEventListener('keydown', handleEscapeClosePopup);
-  //   }
-  // }, [isClickPopupButton, handleSwitchStatePopupInfo]);
   return (
     <>
       <div className="char">

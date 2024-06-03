@@ -114,3 +114,30 @@
 .welcome-page__point_active {
   background-color: rgba(17, 106, 204, 1);
 }
+
+@media (max-width: 400px) {
+  .welcome-page__content {
+    max-width: 300px;
+    min-height: 350px;
+  }
+
+  .welcome-page__button-exit {
+    font-size: 14px;
+    margin-right: 28px;
+  }
+
+  .welcome-page__image {
+    max-width: 252px;
+  }
+
+  .welcome-page__title {
+    max-width: 80vw;
+    font-size: 22px;
+  }
+}
+
+@media (max-height: 690px) {
+  .welcome-page__title {
+    margin-top: 0;
+  }
+}

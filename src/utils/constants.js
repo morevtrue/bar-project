@@ -37,6 +37,13 @@ export const infoData = [
   },
 ];
 
+const infoPhone = [
+  {
+    id: 1,
+    text: "Не обязательно для заполнения. В будущем планируется сервис, который будет предупреждать близких вам людей о проблемах в вашем эмоциональном состоянии, даже если вы будете не в силах об этом рассказать:)"
+  }
+];
+
 export const date = new Date().toLocaleDateString();
 
 export const currentMonth = new Date().getMonth();

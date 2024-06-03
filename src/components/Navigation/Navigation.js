@@ -31,7 +31,7 @@ function Navigation(props) {
           width > 840 && 
           <li className="navigation__menu-item navigation__menu-item_type_test">
             <Link to="/" className={`navigation__menu-link navigation__menu-test ${props.today ? 'navigation__menu-link_type_active navigation__menu-link_type_active-test' : ''}`}>
-              <p className="navigation__menu-text">Тест</p>
+              <p className="navigation__menu-text">Сегодня</p>
             </Link>
           </li>
         }
@@ -62,7 +62,7 @@ function Navigation(props) {
           <li className="navigation__menu-item navigation__menu-item_type_test">
             <Link to="/" className={`navigation__menu-link navigation__menu-test ${props.today ? 'navigation__menu-link_type_active navigation__menu-link_type_active-test' : ''}`}>
               <IconToday alt="иконка меню" className={`navigation__menu-img ${props.today ? 'navigation__menu-active-test' : ''}`} />
-              <p className="navigation__menu-text">Тест</p>
+              <p className="navigation__menu-text">Сегодня</p>
             </Link>
           </li>
         </ul>

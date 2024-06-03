@@ -1,22 +1,34 @@
-import React, { useState } from "react";
-import { RWebShare } from "react-web-share";
+import React from "react";
+import './ShareButton.css';
 
-const ShareButton = () => {
+function ShareButton({ label, text, title }, props) {
+  const canonical = document.querySelector("link[rel=canonical]");
+  let url = canonical ? canonical.href : document.location.href;
+  const shareDetails = { url, title, text };
+
+  const handleSharing = async () => {
+    if (navigator.share) {
+      try {
+        await navigator
+          .share(shareDetails)
+          .then(() =>
+            console.log("Hooray! Your content was shared to tha world")
+          );
+      } catch (error) {
+        console.log(`Oops! I couldn't share to the world because: ${error}`);
+      }
+    } else {
+      // fallback code
+      console.log(
+        "Web share is currently not supported on this browser. Please provide a callback"
+      );
+    }
+  };
   return (
-    <div>
-      <RWebShare
-        data={{
-          text: "",
-          url: "http://localhost:3001",
-          title: "Share",
-        }}
-        disableNative={false}
-        onClick={() => console.log("shared successfully!")}
-      >
-        <button>Share 🔗</button>
-      </RWebShare>
-    </div >
+    <button className="sharer-button" onClick={handleSharing}>
+      <span className="sharer-button-text">{label}</span>
+    </button>
   );
-};
+}
 
 export default ShareButton;

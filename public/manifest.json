@@ -1,9 +1,12 @@
 {
  "name": "Дневник настроения",
+ "short_name": "Дневник настроения",
  "description": "Помощь людям с аффективными расстройствами личности",
- "start_url": ".",
+ "start_url": "/",
  "lang": "ru-RU",
  "display": "standalone",
+ "background_color": "#fff",
+ "theme_color": "#82307b",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",

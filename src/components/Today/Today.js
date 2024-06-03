@@ -5,6 +5,7 @@ import Footer from "../Footer/Footer";
 import Char from "../Char/Char";
 import { infoData } from "../../utils/constants";
 import { date } from "../../utils/constants";
+import ShareButton from "../ShareButton/ShareButton";
 
 function Today(props) {
 
@@ -33,6 +34,11 @@ function Today(props) {
             />
           ))
         }
+        <ShareButton 
+            label="Поделиться"
+            title="Поделиться состоянием"
+            text="Вы можете отправить скрин вашего текущего состояния доверенному лицу"
+        />
       </main>
       <Footer today={true} />
     </>

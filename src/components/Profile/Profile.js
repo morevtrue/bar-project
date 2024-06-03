@@ -6,6 +6,12 @@ import './Profile.css';
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { registerLocale } from "react-datepicker";
+import rus from 'date-fns/locale/ru';
+import MaskedInput from 'react-maskedinput';
+import PWAInstallComponent from "../PWAInstallComponent/PWAInstallComponent";
 
 function Profile(props) {
   const [valueGender, setValueGender] = useState([
@@ -25,6 +31,11 @@ function Profile(props) {
   const [valuePhone, setValuePhone] = useState('');
   const [valueAnotherPhone, setValueAnotherPhone] = useState('');
   const [valueDate, setValueDate] = useState('');
+  registerLocale('ru', rus);
+
+  function handleClickPopup() {
+    props.onClickPopup();
+  }
 
   useEffect(() => {
     if (props.loggedIn) {
@@ -32,10 +43,12 @@ function Profile(props) {
       setValueCurrentGender(currentUser.gender);
       setValuePhone(currentUser.phone);
       setValueAnotherPhone(currentUser.anotherPhone);
-      setValueDate(currentUser.dateOfBirth);
+      if (currentUser.dateOfBirth) {
+        setValueDate(new Date(currentUser.dateOfBirth));
+      }
     }
   }, [currentUser, props.loggedIn]);
-
+  
   function handleChangeName(evt) {
     setValueName(evt.target.value);
     if (evt.target.value === '' || evt.target.value === currentUser.name) {
@@ -57,15 +70,6 @@ function Profile(props) {
   function handleChangeAnotherPhone(number) {
     setValueAnotherPhone(number);
     if (number === '' || number === currentUser.anotherPhone) {
-      props.setIsActiveButtonSubmit(true);
-    } else {
-      props.setIsActiveButtonSubmit(false);
-    }
-  }
-
-  function handleChangeDate(evt) {
-    setValueDate(evt.target.value);
-    if (evt.target.value === '' || evt.target.value === currentUser.dateOfBirth) {
       props.setIsActiveButtonSubmit(true);
     } else {
       props.setIsActiveButtonSubmit(false);
@@ -161,13 +165,27 @@ function Profile(props) {
             onChange={handleChangeName}
           />
           <label htmlFor="profile-input-date" className="profile__form-label">Дата рождения</label>
-          <input
-            type="date"
+          <DatePicker 
             name="profileInputDate"
-            className="profile__form-input"
+            className="profile__form-input profile__form-input-birth"
             id="profile-input-date"
-            value={valueDate || ''}
-            onChange={handleChangeDate}
+            // value={valueDate || ''}
+            selected={valueDate}
+            onChange={(date, evt) => {
+              setValueDate(date);
+              if (date === '' || date === new Date(currentUser.dateOfBirth) || date === null) {
+                props.setIsActiveButtonSubmit(true);
+              } else {
+                props.setIsActiveButtonSubmit(false);
+              }
+            }}
+            dateFormat='dd.MM.y'
+            open={false}
+            locale='ru'
+            placeholderText="дд.мм.гггг"
+            customInput={
+              <MaskedInput mask="11.11.1111" placeholder="dd.mm.yyyy" />
+            }
           />
           <p className="profile__form-label">Пол</p>
           <div className="profile__form-fieldset">
@@ -196,7 +214,10 @@ function Profile(props) {
               <label htmlFor="profile-input-radio-women" className="profile__form-label">{valueGender[1].value}</label>
             </div>
           </div>
-          <label htmlFor="profile-input-phone" className="profile__form-label">Ваш телефон</label>
+          <div className="profile__form-phone-info-text">
+            <label htmlFor="profile-input-phone" className="profile__form-label">Ваш телефон</label>
+            <button className="profile__form-button-show-more" onClick={handleClickPopup}></button>
+          </div>
           <PhoneInput
             placeholder="Ваш номер телефона..."
             id="profile-input-phone"
@@ -207,7 +228,10 @@ function Profile(props) {
             className="profile__form-input"
             labels={ru}
           />
-          <label htmlFor="profile-input-otherPhone" className="profile__form-label">Телефон доверенного лица</label>
+          <div className="profile__form-phone-info-text">
+            <label htmlFor="profile-input-otherPhone" className="profile__form-label">Телефон доверенного лица</label>
+            <button className="profile__form-button-show-more" onClick={handleClickPopup}></button>
+          </div>
           <PhoneInput
             placeholder="Введите номер телефона..."
             id="profile-input-otherPhone"
@@ -218,6 +242,8 @@ function Profile(props) {
             className="profile__form-input"
             labels={ru}
           />
+          <a href="https://forms.yandex.ru/u/665d8d4473cee702618b0002/" className="profile__link" target="_blank">Обратная связь</a>
+          <PWAInstallComponent />
           <button className={`profile__button ${props.isActiveButtonSubmit ? 'profile__button_type_active' : ''}`} disabled={props.isActiveButtonSubmit}>Сохранить</button>
           <button className="profile__button profile__button_type_exit" onClick={props.onClickExit}>Выйти из профиля</button>
         </form>

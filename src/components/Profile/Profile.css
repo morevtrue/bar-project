@@ -76,15 +76,40 @@
   outline: none;
 }
 
-
-
 .profile__form-input:hover {
   border: 1px solid #19b2e6;
+}
+
+.profile__form-input-birth {
+  width: calc(100% - 34px);
+}
+
+.profile__form-phone-info-text {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile__form-button-show-more {
+  background: url(../../images/icon-info.svg) no-repeat center / cover;
+  border: none;
+  height: 2.5em;
+  width: 2.5em;
+  padding: 0;
+  opacity: 1;
+  display: flex;
+  align-self: center;
+  transition: opacity .5s linear;
+}
+
+.profile__form-button-show-more:hover {
+  cursor: pointer;
+  opacity: .8;
 }
 
 .PhoneInputInput {
   background-color: rgba(255, 255, 255, 1);
   border: none;
+  outline: none;
 }
 
 .profile__form-gender:hover {
@@ -99,7 +124,8 @@
   color: rgba(49, 49, 49, .6);
 }
 
-.profile__button {
+.profile__button,
+.profile__link {
   line-height: 1;
   font-weight: 400;
   padding: 13px 0;
@@ -113,13 +139,19 @@
   margin: 0 0 10px;
 }
 
-.profile__button:hover {
-  cursor: pointer;
+.profile__link {
+  margin-top: 30px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.profile__link:hover {
   opacity: .7;
 }
 
-.profile__button:first-of-type {
-  margin-top: 30px;
+.profile__button:hover {
+  cursor: pointer;
+  opacity: .7;
 }
 
 .profile__button:last-of-type {
