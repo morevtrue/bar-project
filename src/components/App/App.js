@@ -7,12 +7,14 @@ import Statistics from '../Statistics/Statistics';
 import Today from '../Today/Today';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import Privacy from '../Privacy/Privacy';
 import PopupInfo from '../PopupInfo/PopupInfo';
 import PopupLogout from '../PopupLogout/PopupLogout';
 import PopupProfile from '../PopupProfile/PopupProfile';
 import Note from '../Note/Note';
 import LoadingView from '../LoadingView/LoadingView';
 import WelcomePage from '../WelcomePage/WelcomePage';
+import AboutProject from "../AboutProject/AboutProject";
 import { api } from '../../utils/Api';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { date } from '../../utils/constants';
@@ -372,7 +374,23 @@ function App(props) {
                   />
                 }
                 <Route
+                    path="/privacy"
+                    element={
+                      <Privacy />
+                    }
+                />
+                <Route
                   path="/welcome"
+                  element={
+                    <ProtectedRoute
+                      element={WelcomePage}
+                      loggedIn={value_loggedIn}
+                      isFirstAuth={isFirstAuth}
+                    />
+                  }
+                />
+                <Route
+                  path="/test"
                   element={
                     <ProtectedRoute
                       element={WelcomePage}
@@ -421,6 +439,16 @@ function App(props) {
                   element={
                     <ProtectedRoute
                       element={Statistics}
+                      // emotionList={emotionList}
+                      loggedIn={value_loggedIn}
+                    />
+                  }
+                />
+                <Route
+                  path="/about-project"
+                  element={
+                    <ProtectedRoute
+                      element={AboutProject}
                       // emotionList={emotionList}
                       loggedIn={value_loggedIn}
                     />

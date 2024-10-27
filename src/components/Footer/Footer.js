@@ -11,6 +11,7 @@ function Footer(props) {
         calendar={props.calendar}
         stat={props.stat}
         profile={props.profile}
+        about_project={props.about_project}
       />
     </footer>
   )

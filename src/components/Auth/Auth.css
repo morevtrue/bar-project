@@ -202,6 +202,14 @@ input::-webkit-input-placeholder {
   color: rgb(255, 2, 2);
 }
 
+.privacy-link {
+  text-align: center;
+}
+
+.privacy-text {
+  font-size: 16px;
+}
+
 @media (max-height: 1027px) {
   .auth__form {
     min-height: 70vh;

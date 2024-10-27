@@ -130,6 +130,12 @@ function Auth(props) {
               <p className="auth__form-text">{props.authText}</p>
               <Link to={props.link} className="auth__form-login">{props.authLogin}</Link>
             </div>
+            <div className="auth__form-text-content privacy-link">
+              <p className="auth__form-text">
+                При входе и регистрации вы соглашаетесь с &nbsp;
+                <Link to="/privacy" className="auth__form-login privacy-text">политикой обработки персональных данных.</Link>
+              </p>
+            </div>
           </div>
         </form>
       </div>

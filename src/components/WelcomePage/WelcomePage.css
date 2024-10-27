@@ -18,6 +18,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  margin: 0 auto;
 }
 
 .welcome-page__image {
@@ -61,7 +62,7 @@
   letter-spacing: -1px;
   color: rgba(17, 38, 60, 1);
   padding: 0;
-  margin: -84px 0 0;
+  margin: 0 auto 0;
 }
 
 .welcome-page__footer-content {
@@ -113,6 +114,19 @@
 
 .welcome-page__point_active {
   background-color: rgba(17, 106, 204, 1);
+}
+
+.swiper {
+  width: 100vw;
+  height: 90vh;
+  margin: 0 auto;
+}
+
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 @media (max-width: 400px) {

@@ -12,8 +12,8 @@ COPY . .
 EXPOSE 3000
 RUN npm run build
 
-FROM nginx:mainline-alpine
-WORKDIR /usr/share/nginx/html
-COPY update_nginx_config.ed /
-RUN ed /etc/nginx/conf.d/default.conf < /update_nginx_config.ed && rm /update_nginx_config.ed
-COPY --from=builder /opt/build/frontend/build .
+# FROM nginx:mainline-alpine
+# WORKDIR /usr/share/nginx/html
+# COPY update_nginx_config.ed /
+# RUN ed /etc/nginx/conf.d/default.conf < /update_nginx_config.ed && rm /update_nginx_config.ed
+# COPY --from=builder /opt/build/frontend/build .

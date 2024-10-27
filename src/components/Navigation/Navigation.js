@@ -5,6 +5,7 @@ import { ReactComponent as IconToday } from '../../images/icon-today.svg';
 import { ReactComponent as IconCalendar } from '../../images/icon-calendar.svg';
 import { ReactComponent as IconStat } from '../../images/icon-stat.svg';
 import { ReactComponent as IconProfile } from '../../images/icon-profile.svg';
+import { ReactComponent as IconInfo } from '../../images/icon-info-nav.svg';
 
 function Navigation(props) {
   const [width, setWidth] = useState(window.innerWidth);
@@ -53,6 +54,13 @@ function Navigation(props) {
             <Link to="/profile" className={`navigation__menu-link ${props.profile ? 'navigation__menu-link_type_active' : ''}`}>
             {
                 width < 841 ? <IconProfile alt="иконка меню" className={`navigation__menu-img ${!props.profile ? 'navigation__menu-inactive' : ''}`} /> :               <p className="navigation__menu-text">Профиль</p>
+              }
+            </Link>
+          </li>
+          <li className={`navigation__menu-item ${props.about_project ? 'navigation__menu-item_type_active' : ''}`}>
+            <Link to="/about-project" className={`navigation__menu-link ${width < 841 ? 'navigation__menu-link-info' : '' } ${props.about_project ? 'navigation__menu-link_type_active' : ''}`}>
+            {
+                width < 841 ? <IconInfo alt="иконка меню" className={`navigation__menu-img ${!props.about_project ? 'navigation__menu-inactive' : ''}`} /> :               <p className="navigation__menu-text">О проекте</p>
               }
             </Link>
           </li>
