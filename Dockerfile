@@ -1,19 +1,11 @@
-FROM node:20-alpine as packages
-WORKDIR /opt/build/frontend
-COPY package.json .
-COPY package-lock.json .
-RUN npm i
-
-FROM node:20-alpine as builder
-ENV REACT_APP_PUBLIC_URL /
-WORKDIR /opt/build/frontend
-COPY --from=packages /opt/build/frontend/node_modules ./node_modules
+FROM node:13.12.0-alpine as build
+WORKDIR /app
 COPY . .
-EXPOSE 3000
+RUN npm i
 RUN npm run build
 
-# FROM nginx:mainline-alpine
-# WORKDIR /usr/share/nginx/html
-# COPY update_nginx_config.ed /
-# RUN ed /etc/nginx/conf.d/default.conf < /update_nginx_config.ed && rm /update_nginx_config.ed
-# COPY --from=builder /opt/build/frontend/build .
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

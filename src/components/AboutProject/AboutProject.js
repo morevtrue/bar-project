@@ -76,12 +76,16 @@ function AboutProject(props) {
                     </p>
                     <ul className="about-project__links">
                         <li className="about-project__link">
-                            <p className="about-project__paragraph link-name">Фонд содействия развитию малых форм предприятий в научно-технической сфере:</p>
-                            <a className="link" href="https://fasie.ru/" target="blank">https://fasie.ru</a>
+                            <p className="about-project__paragraph link-name">
+                                Фонд содействия развитию малых форм предприятий в научно-технической сфере:&nbsp;
+                                <a className="link" href="https://fasie.ru/" target="blank">https://fasie.ru</a>
+                            </p>
                         </li>
                         <li className="about-project__link">
-                            <p className="about-project__paragraph link-name">Наше сообщество в ВК:</p>
-                            <a className="link" href="https://vk.com/club227297802" target="blank">https://vk.com/club227297802</a>
+                            <p className="about-project__paragraph link-name">
+                                Наше сообщество в ВК:&nbsp;
+                                <a className="link" href="https://vk.com/club227297802" target="blank">https://vk.com/club227297802</a>
+                            </p>
                         </li>
                     </ul>
                 </div>

@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 100%;
   max-width: 353px;
   margin-bottom: 12px;
   margin-top: 20px;
@@ -212,10 +212,12 @@
 
 @media (max-width: 320px) {
   .react-datepicker__header .react-datepicker__day-name {
-    padding: 5.6px;
+    padding: 3px;
+    font-size: 12px;
   }
 
   .react-datepicker__week .react-datepicker__day {
-    padding: 5.6px;
+    padding: 3px;
+    font-size: 12px;
   }
 }
