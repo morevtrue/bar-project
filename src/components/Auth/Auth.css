@@ -247,7 +247,7 @@ input::-webkit-input-placeholder {
   }
 
   .auth__form-content {
-    gap: 7.8125vh;
+    gap: 5vh;
   }
 
   .auth__form-inputs {
