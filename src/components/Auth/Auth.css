@@ -175,6 +175,7 @@ input::-webkit-input-placeholder {
   gap: 10px;
 }
 
+.auth__about-project,
 .auth__form-text,
 .auth__form-login {
   font-size: 1.6em;
@@ -185,6 +186,7 @@ input::-webkit-input-placeholder {
   color: rgba(17, 38, 60, 1);
 }
 
+.auth__about-project,
 .auth__form-login {
   font-weight: 500;
   color: rgba(25, 178, 230, 1);

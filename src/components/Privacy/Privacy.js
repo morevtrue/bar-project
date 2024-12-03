@@ -1,12 +1,16 @@
 import React from "react";
 import './Privacy.css';
+import { Link } from "react-router-dom";
 
 function Privacy() {
     return (
         <div className="privacy">
-            <h1 className="privacy__title privacy__header-title">
-                Политика в отношении обработки персональных данных
-            </h1>
+            <div className="privacy_head">
+                <h1 className="privacy__title privacy__header-title">
+                    Политика в отношении обработки персональных данных
+                </h1>
+                <Link to="/sign-in" className="privacy__form-button-back"></Link>
+            </div>
             <h2 className="privacy__title">
                 1. Общие положения
             </h2>

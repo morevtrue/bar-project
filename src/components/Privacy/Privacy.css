@@ -6,15 +6,33 @@
     flex-direction: column;
 }
 
+.privacy_head {
+    display: flex;
+    width: 100%;
+    margin: 40px 0 30px;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .privacy__title {
+    width: calc(100% - 39px);
     font-size: 18px;
-    margin: 40px 0 0;
+    margin: 0;
     padding: 0;
+}
+
+.privacy__form-button-back {
+    background: url('../../images/icon-back.svg') no-repeat center/cover;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: 39px;
+    height: 39px;
 }
 
 .privacy__header-title {
     font-size: 24px;
-    margin: 0 0 30px;
+    margin: 0;
     padding: 0;
 }
 
@@ -81,14 +99,16 @@ td {
         font-size: 14px;
     }
 
+    .privacy_head {
+        margin: 20px 0 15px;
+    }
+
     .privacy__title {
         font-size: 16px;
-        margin: 20px 0 0;
     }
     
     .privacy__header-title {
         font-size: 20px;
-        margin: 0 0 15px;
     }
     
     .privacy__text {

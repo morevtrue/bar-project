@@ -380,6 +380,12 @@ function App(props) {
                     }
                 />
                 <Route
+                  path="/about-project"
+                  element={
+                    <AboutProject auth={value_loggedIn ? false : true} />
+                  }
+                />
+                <Route
                   path="/welcome"
                   element={
                     <ProtectedRoute
@@ -439,16 +445,6 @@ function App(props) {
                   element={
                     <ProtectedRoute
                       element={Statistics}
-                      // emotionList={emotionList}
-                      loggedIn={value_loggedIn}
-                    />
-                  }
-                />
-                <Route
-                  path="/about-project"
-                  element={
-                    <ProtectedRoute
-                      element={AboutProject}
                       // emotionList={emotionList}
                       loggedIn={value_loggedIn}
                     />

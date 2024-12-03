@@ -59,6 +59,7 @@ function Auth(props) {
       <div className="auth__content">
         <form className="auth__form" name="authForm" onSubmit={handleSubmit}>
           <div className="auth__form-content">
+            <Link to="/about-project" className="auth__about-project">Информация о проекте</Link>
             <h1 className="auth__form-title">{props.helloText}</h1>
             <ul className="auth__form-inputs">
               <li className="auth__form-input-content">
