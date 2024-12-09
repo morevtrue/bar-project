@@ -29,6 +29,7 @@ import actionCreatorDespondency from '../../store/actionCreators/actionCreatorDe
 import actionCreatorDepression from '../../store/actionCreators/actionCreatorDepression';
 import actionCreatorEmotionList from '../../store/actionCreators/actionCreatorEmotionList';
 import actionCreatorLoggedIn from '../../store/actionCreators/actionCreatorLoggedIn';
+import actionCreatorLoggedInAdmin from '../../store/actionCreators/actionCreatorLoggedInAdmin';
 import { useCallback } from 'react';
 
 function App(props) {
@@ -50,6 +51,7 @@ function App(props) {
     actionCreatorText,
     actionCreatorEmotionList,
     actionCreatorLoggedIn,
+    actionCreatorLoggedInAdmin,
   } = props;
 
   const [isLoading, setIsLoading] = useState(true);
@@ -128,13 +130,20 @@ function App(props) {
         if (res) {
           actionCreatorLoggedIn(true);
         } else {
-          actionCreatorLoggedIn(false);
-          navigate("/sign-in", { replace: true });
+          api.checkTokenAdmin()
+            .then((res) => {
+              if (res) actionCreatorLoggedInAdmin(true);
+              else {
+                actionCreatorLoggedIn(false);
+                navigate("/sign-in", { replace: true });
+              }
+            })
         }
       })
       .catch((err) => {
         console.log(err);
         actionCreatorLoggedIn(false);
+        actionCreatorLoggedInAdmin(false);
         navigate("/sign-in", { replace: true });
       })
   }
@@ -301,6 +310,7 @@ function App(props) {
         actionCreatorText('');
         actionCreatorEmotionList([]);
         actionCreatorLoggedIn(false);
+        actionCreatorLoggedInAdmin(false);
         setIsClickExit(false);
         window.location.reload();
       })
@@ -504,7 +514,8 @@ const mapDispatchToProps = dispatch => ({
   actionCreatorDepression: value => dispatch(actionCreatorDepression(value)),
   actionCreatorText: value => dispatch(actionCreatorText(value)),
   actionCreatorEmotionList: value => dispatch(actionCreatorEmotionList(value)),
-  actionCreatorLoggedIn: value => dispatch(actionCreatorLoggedIn(value))
+  actionCreatorLoggedIn: value => dispatch(actionCreatorLoggedIn(value)),
+  actionCreatorLoggedInAdmin: value => dispatch(actionCreatorLoggedInAdmin(value))
 })
 
 export default (connect(

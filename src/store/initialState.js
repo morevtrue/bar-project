@@ -8,6 +8,7 @@ const initialState = {
   value_text: '',
   value_emotionList: [],
   value_loggedIn: false,
+  value_loggedIn_admin: false,
   value_date: '',
 }
 

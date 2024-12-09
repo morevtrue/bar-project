@@ -20,6 +20,12 @@ export default class Api {
     }).then(res => this._getCheck(res));
   }
 
+  getUsersData() {
+    return fetch(this._baseUrl + '/users/all', {
+      credentials: 'include',
+    }).then(res => this._getCheck(res));
+  }
+
   addNewEmotionState({ irritabillity, mania, anxiety, panic, despondency, depression, date, text }) {
     return fetch(this._baseUrl + '/emotions', {
       method: 'POST',
@@ -55,6 +61,12 @@ export default class Api {
 
   getProfileContent() {
     return fetch(this._baseUrl + '/users/me', {
+      credentials: 'include',
+    }).then(res => this._getCheck(res));
+  }
+
+  getAdminInfo() {
+    return fetch(this._baseUrl + '/admins/me', {
       credentials: 'include',
     }).then(res => this._getCheck(res));
   }
@@ -105,8 +117,31 @@ export default class Api {
     }).then(res => this._getCheck(res));
   }
 
+  authorizationAdmin(password, login) {
+    return fetch(`${this._baseUrl}/signin/admins`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        password,
+        login,
+      }),
+      credentials: 'include',
+    }).then(res => this._getCheck(res));
+  }
+
   checkToken() {
     return fetch(`${this._baseUrl}/users/me`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    }).then(res => this._getCheck(res));
+  }
+
+  checkTokenAdmin() {
+    return fetch(`${this._baseUrl}/admins/me`, {
       headers: {
         'Content-Type': 'application/json',
       },

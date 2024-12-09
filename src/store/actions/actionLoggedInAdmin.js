@@ -1,0 +1,3 @@
+const LOGGEDINADMIN = "LOGGEDINADMIN";
+
+export default LOGGEDINADMIN;
