@@ -26,8 +26,10 @@ function Auth(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    if (!props.isRegister) {
+    if (!props.isRegister && !props.isLoginAdmin) {
       props.onSubmitAuth(values.password, values.email);
+    } else if (props.isLoginAdmin) {
+      props.onSubmitAdmin(values.password, values.text);
     } else {
       props.onSubmitRegister(values.password, values.email);
     }
@@ -59,18 +61,20 @@ function Auth(props) {
       <div className="auth__content">
         <form className="auth__form" name="authForm" onSubmit={handleSubmit}>
           <div className="auth__form-content">
-            <Link to="/about-project" className="auth__about-project">Информация о проекте</Link>
+            {
+              !props.isLoginAdmin && <Link to="/about-project" className="auth__about-project">Информация о проекте</Link>
+            }
             <h1 className="auth__form-title">{props.helloText}</h1>
             <ul className="auth__form-inputs">
               <li className="auth__form-input-content">
-                <label htmlFor="auth-form-email" className="auth__form-label">E-mail</label>
+                <label htmlFor="auth-form-email" className="auth__form-label">{!props.isLoginAdmin ? 'E-mail' : 'Логин'}</label>
                 <input
-                  type="email"
-                  name="email"
+                  type={props.isLoginAdmin ? 'text' : 'email'}
+                  name={props.isLoginAdmin ? 'text' : 'email'}
                   className="auth__form-input"
                   id="auth-form-email"
                   placeholder="Введите e-mail здесь"
-                  value={values.email || ""}
+                  value={(props.isLoginAdmin ? values.text : values.email) || ""}
                   onChange={handleChangeInput}
                   required
                 />
@@ -127,16 +131,21 @@ function Auth(props) {
               disabled={!isValid || errLogin || errReg || (isCheckPassword && props.isRegister) || props.errEmail === values.email}>
               {props.buttonText}
             </button>
-            <div className="auth__form-text-content">
-              <p className="auth__form-text">{props.authText}</p>
-              <Link to={props.link} className="auth__form-login">{props.authLogin}</Link>
-            </div>
-            <div className="auth__form-text-content privacy-link">
-              <p className="auth__form-text">
-                При входе и регистрации вы соглашаетесь с &nbsp;
-                <Link to="/privacy" className="auth__form-login privacy-text">политикой обработки персональных данных.</Link>
-              </p>
-            </div>
+            {
+              !props.isLoginAdmin &&
+                <>
+                  <div className="auth__form-text-content">
+                    <p className="auth__form-text">{props.authText}</p>
+                    <Link to={props.link} className="auth__form-login">{props.authLogin}</Link>
+                  </div>
+                  <div className="auth__form-text-content privacy-link">
+                    <p className="auth__form-text">
+                      При входе и регистрации вы соглашаетесь с &nbsp;
+                      <Link to="/privacy" className="auth__form-login privacy-text">политикой обработки персональных данных.</Link>
+                    </p>
+                  </div>
+                </>
+            }
           </div>
         </form>
       </div>

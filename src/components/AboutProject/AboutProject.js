@@ -15,7 +15,7 @@ function AboutProject(props) {
             <main className="about-project">
                 <div className="about-project_head">
                     <h1 className="about-project__title">О проекте</h1>
-                    {props.auth ? <Link to="/sign-in" className="about-project__form-button-back"></Link> : <></>}
+                    {props.auth ? <Link to="/" className="about-project__form-button-back"></Link> : <></>}
                 </div>
                 <div className="about-project__container">
                     <ul className="about-project__links">
@@ -96,7 +96,9 @@ function AboutProject(props) {
                         </li>
                     </ul>
                     <p className="about-project__paragraph about-project__paragraph_fund">
-                        Проект реализуется при грантовой поддержке <span className="about-project__paragraph_bold">"Фонда содействия развитию малых форм предприятий в научно-технической сфере"</span>.
+                        Работа выполнена при
+                        поддержке гранта <span className="about-project__paragraph_bold">Фонда содействия инновациям</span>, предоставленного в рамках программы <span className="about-project__paragraph_bold">«Студенческий стартап»</span> федерального проекта <span className="about-project__paragraph_bold">«Платформа университетского
+                        технологического предпринимательства»</span>.
                     </p>
                     <p className="about-project__paragraph about-project__paragraph-link">
                         Партнеры проекта:

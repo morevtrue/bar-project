@@ -11,7 +11,7 @@ function Register(props) {
         buttonText="Зарегистрироваться"
         authText="Есть аккаунт?"
         authLogin="Войти"
-        link="/sign-in"
+        link="/"
         isRegister={true}
         conflictErr={props.conflictErr}
         isBadRequest={props.errBadRequest}

@@ -7,14 +7,17 @@ import Statistics from '../Statistics/Statistics';
 import Today from '../Today/Today';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import LoginAdmin from '../LoginAdmin/LoginAdmin';
 import Privacy from '../Privacy/Privacy';
 import PopupInfo from '../PopupInfo/PopupInfo';
 import PopupLogout from '../PopupLogout/PopupLogout';
 import PopupProfile from '../PopupProfile/PopupProfile';
+import PopupDeleteUser from '../PopupDeleteUser/PopupDeleteUser';
 import Note from '../Note/Note';
 import LoadingView from '../LoadingView/LoadingView';
 import WelcomePage from '../WelcomePage/WelcomePage';
 import AboutProject from "../AboutProject/AboutProject";
+import Users from '../Users/Users';
 import { api } from '../../utils/Api';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { date } from '../../utils/constants';
@@ -30,6 +33,7 @@ import actionCreatorDepression from '../../store/actionCreators/actionCreatorDep
 import actionCreatorEmotionList from '../../store/actionCreators/actionCreatorEmotionList';
 import actionCreatorLoggedIn from '../../store/actionCreators/actionCreatorLoggedIn';
 import actionCreatorLoggedInAdmin from '../../store/actionCreators/actionCreatorLoggedInAdmin';
+import actionCreatorUsers from '../../store/actionCreators/actionCreatorUsers';
 import { useCallback } from 'react';
 
 function App(props) {
@@ -42,6 +46,8 @@ function App(props) {
     value_depression,
     value_text,
     value_loggedIn,
+    value_loggedIn_admin,
+    value_users,
     actionCreatorIrritabillity,
     actionCreatorMania,
     actionCreatorAnxiety,
@@ -52,6 +58,7 @@ function App(props) {
     actionCreatorEmotionList,
     actionCreatorLoggedIn,
     actionCreatorLoggedInAdmin,
+    actionCreatorUsers
   } = props;
 
   const [isLoading, setIsLoading] = useState(true);
@@ -68,6 +75,7 @@ function App(props) {
   });
   const [isActiveButtonSubmit, setIsActiveButtonSubmit] = useState(true);
   const [isClickExit, setIsClickExit] = useState(false);
+  const [isClickExitDelPopup, setIsClickExitDelPopup] = useState(false);
   const [conflictErr, setConflictErr] = useState(false);
   const [errUnathorized, setErrUnathorized] = useState(false);
   const [errBadRequestProfile, setErrBadRequestProfile] = useState(false);
@@ -75,6 +83,7 @@ function App(props) {
   const [errEmail, setErrEmail] = useState('');
   const [errEmailLogin, setErrEmailLogin] = useState('');
   const [isFirstAuth, setIsFirstAuth] = useState(false);
+  const [userIdDel, setUserIdDel] = useState();
 
   function handleInfoClick(info) {
     setSelectedEmotion({
@@ -95,6 +104,11 @@ function App(props) {
     setIsClickExit(true);
   }
 
+  function handleDelUserClick(id) {
+    setIsClickExitDelPopup(true);
+    setUserIdDel(id);
+  }
+
   function closePopupInfo(emotion) {
     setSelectedEmotion({
       text: emotion.text,
@@ -111,6 +125,7 @@ function App(props) {
 
   function closePopupLogout() {
     setIsClickExit(false);
+    setIsClickExitDelPopup(false);
   }
 
   const navigate = useNavigate();
@@ -119,33 +134,39 @@ function App(props) {
   useEffect(() => {
     setTimeout(() => {
       tokenCheck();
+      tokenCheckAdmin();
       setIsLoading(false);
     }, 1000)
   }, [])
 
   const tokenCheck = () => {
-    api
-      .checkToken()
-      .then((res) => {
-        if (res) {
-          actionCreatorLoggedIn(true);
-        } else {
-          api.checkTokenAdmin()
-            .then((res) => {
-              if (res) actionCreatorLoggedInAdmin(true);
-              else {
-                actionCreatorLoggedIn(false);
-                navigate("/sign-in", { replace: true });
-              }
-            })
-        }
+    api.checkToken()
+      .then((user) => {
+        if (user) actionCreatorLoggedIn(true)
+          else actionCreatorLoggedIn(false);
       })
       .catch((err) => {
         console.log(err);
         actionCreatorLoggedIn(false);
-        actionCreatorLoggedInAdmin(false);
-        navigate("/sign-in", { replace: true });
+        // actionCreatorLoggedInAdmin(false);
+        // navigate("/sign-in", { replace: true });
       })
+    
+  }
+
+  const tokenCheckAdmin = () => {
+    api.checkTokenAdmin()
+      .then((admin) => {
+        if (admin) actionCreatorLoggedInAdmin(true)
+          else actionCreatorLoggedInAdmin(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        actionCreatorLoggedInAdmin(false);
+        // actionCreatorLoggedInAdmin(false);
+        // navigate("/sign-in", { replace: true });
+      })
+    
   }
 
   // ПОЛУЧЕНИЕ ДАННЫХ О ПОЛЬЗОВАТЕЛЕ 
@@ -212,8 +233,20 @@ function App(props) {
         .catch(err => console.log(err));
     }
 
+    if (value_loggedIn_admin) {
+      Promise.all([api.getUsersData(), api.getAdminInfo()])
+        .then(([users, info]) => {
+          actionCreatorUsers(users)
+          setCurrentUser(info);
+          
 
-  }, [value_loggedIn, actionCreatorAnxiety, actionCreatorDepression, actionCreatorDespondency, actionCreatorIrritabillity, actionCreatorMania, actionCreatorPanic, actionCreatorEmotionList, actionCreatorText, createEmotionListToday, setEmotionToday]);
+        })
+        .catch(err => console.log(err));
+    }
+    
+
+
+  }, [value_loggedIn, value_loggedIn_admin, actionCreatorUsers, actionCreatorAnxiety, actionCreatorDepression, actionCreatorDespondency, actionCreatorIrritabillity, actionCreatorMania, actionCreatorPanic, actionCreatorEmotionList, actionCreatorText, createEmotionListToday, setEmotionToday]);
 
   useEffect(() => {
     if (emotionToday !== undefined && value_loggedIn === true) {
@@ -260,6 +293,7 @@ function App(props) {
       .then((res) => {
         actionCreatorLoggedIn(true);
         // setIsLoggedIn(true);
+        
         if (isFirstAuth) {
           navigate('/welcome', { replace: true })
         } else {
@@ -281,6 +315,33 @@ function App(props) {
       })
   }
 
+  // АВТОРИЗАЦИЯ АДМИНА
+  function handleSubmitAuthAdmin(password, login) {
+    api
+      .authorizationAdmin(password, login)
+      .then((res) => {
+        actionCreatorLoggedInAdmin(true);
+        navigate('/users', { replace: true })
+        console.log(res)
+        if (res) {
+          setErrUnathorized(false);
+          setErrBadRequestProfile(false);
+        }
+        return res;
+      })
+      .catch((err) => {
+        if (err === 401) {
+          setErrUnathorized(true);
+        } else if (err === 400) {
+          setErrBadRequestProfile(true);
+        }
+        setErrEmailLogin(login);
+      })
+
+    console.log(value_loggedIn)
+  }
+  console.log(value_loggedIn_admin)
+
   // ОБНОВЛЕНИЕ ДАННЫХ ПРОФИЛЯ
   function handleUpdateUser(profileData) {
     api
@@ -294,13 +355,20 @@ function App(props) {
       });
   }
 
+  const handleDeleteUser = () => {
+    api.deleteUser(userIdDel).then(() => {
+      actionCreatorUsers(value_users.filter(item => item._id !== userIdDel))
+      setIsClickExitDelPopup(false);
+    })
+  }
+
   // ОЧИСТКА КУК ПРИ ВЫХОДЕ
   const handleClearCookie = () => {
     api
       .clearCookie()
       .then(() => {
         // setIsLoggedIn(false);
-        navigate('/sign-in', { replace: true });
+        navigate('/', { replace: true });
         actionCreatorIrritabillity(0);
         actionCreatorMania(0);
         actionCreatorAnxiety(0);
@@ -311,6 +379,7 @@ function App(props) {
         actionCreatorEmotionList([]);
         actionCreatorLoggedIn(false);
         actionCreatorLoggedInAdmin(false);
+        actionCreatorUsers([]);
         setIsClickExit(false);
         window.location.reload();
       })
@@ -358,7 +427,7 @@ function App(props) {
               <Routes>
                 {
                   !value_loggedIn && <Route
-                    path="/sign-in"
+                    path="/"
                     element={
                       <Login
                         onSubmit={handleSubmitAuth}
@@ -379,6 +448,19 @@ function App(props) {
                         onSubmit={handleSubmitRegister}
                         errEmail={errEmail}
                         setIsFirstAuth={setIsFirstAuth}
+                      />
+                    }
+                  />
+                }
+                {
+                  !value_loggedIn_admin && <Route
+                    path="/admin"
+                    element={
+                      <LoginAdmin
+                        onSubmit={handleSubmitAuthAdmin}
+                        errUnathorized={errUnathorized}
+                        errBadRequestLogin={errBadRequestProfile}
+                        errEmailLogin={errEmailLogin}
                       />
                     }
                   />
@@ -412,6 +494,19 @@ function App(props) {
                       element={WelcomePage}
                       loggedIn={value_loggedIn}
                       isFirstAuth={isFirstAuth}
+                    />
+                  }
+                />
+                <Route
+                  path="/users"
+                  element={
+                    <ProtectedRoute
+                      element={Users}
+                      loggedIn={value_loggedIn_admin}
+                      onLogoutProfile={isClickExit}
+                      onClickExit={handleLogoutClick}
+                      onDelete={handleDelUserClick}
+                      // isFirstAuth={isFirstAuth}
                     />
                   }
                 />
@@ -480,12 +575,17 @@ function App(props) {
                             ? <Navigate to="/" replace />
                             : <Navigate to="/welcome" replace />  
                         )
-                      : <Navigate to="/sign-in" replace />
+                      : (value_loggedIn_admin
+                          ? <Navigate to="/users" replace />
+                          : <Navigate to="/" replace />
+                        )
+                      
                   }
                 />
               </Routes>
               <PopupInfo onClose={closePopupInfo} emotion={selectedEmotion} />
               <PopupLogout onClose={closePopupLogout} onLogout={handleClearCookie} isOpen={isClickExit} />
+              <PopupDeleteUser onClose={closePopupLogout} onDelete={handleDeleteUser} isOpen={isClickExitDelPopup} />
               <PopupProfile onClose={closePopupProfile} popupProfile={profileInfoPhoneText} />
             </div>
       }
@@ -503,6 +603,8 @@ const mapStateToProps = state => ({
   value_text: state.value_text,
   value_emotionList: state.value_emotionList,
   value_loggedIn: state.value_loggedIn,
+  value_loggedIn_admin: state.value_loggedIn_admin,
+  value_users: state.value_users
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -515,7 +617,8 @@ const mapDispatchToProps = dispatch => ({
   actionCreatorText: value => dispatch(actionCreatorText(value)),
   actionCreatorEmotionList: value => dispatch(actionCreatorEmotionList(value)),
   actionCreatorLoggedIn: value => dispatch(actionCreatorLoggedIn(value)),
-  actionCreatorLoggedInAdmin: value => dispatch(actionCreatorLoggedInAdmin(value))
+  actionCreatorLoggedInAdmin: value => dispatch(actionCreatorLoggedInAdmin(value)),
+  actionCreatorUsers: value => dispatch(actionCreatorUsers(value))
 })
 
 export default (connect(

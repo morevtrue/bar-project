@@ -158,6 +158,20 @@ export default class Api {
     }).then(res => this._getCheck(res));
   }
 
+  deleteUser(id) {
+    return fetch(this._baseUrl + `/users/delete/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        authorization: this._token,
+        'Content-Type': this._contentType
+      },
+      body: JSON.stringify({
+        _id: id
+      })
+    });
+  }
+
 }
 
 export const api = new Api({

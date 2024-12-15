@@ -9,6 +9,7 @@ import EMOTION_LIST from "../actions/actionEmotionList";
 import LOGGEDIN from "../actions/actionLoggedIn";
 import LOGGEDINADMIN from "../actions/actionLoggedInAdmin";
 import DATE from "../actions/actionDate";
+import USERS from "../actions/actionUsers";
 // import initialState from "../initialState";
 
 // function reducerCurrentEmotions(state = initialState, action) {
@@ -25,6 +26,7 @@ function reducerCurrentEmotions(state, action) {
     case LOGGEDIN: return { ...state, value_loggedIn: action.payload };
     case LOGGEDINADMIN: return { ...state, value_loggedIn_admin: action.payload };
     case DATE: return { ...state, value_date: action.payload };
+    case USERS: return { ...state, value_users: action.payload };
 
     default: return state;
   }

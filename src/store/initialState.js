@@ -10,6 +10,7 @@ const initialState = {
   value_loggedIn: false,
   value_loggedIn_admin: false,
   value_date: '',
+  value_users: []
 }
 
 export default initialState;

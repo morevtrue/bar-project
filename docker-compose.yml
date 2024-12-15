@@ -15,6 +15,8 @@ services:
       - "traefik.http.routers.bar-frontend.rule=Host(`calendar.mental-prosvet.ru`)"
       - "traefik.http.routers.bar-frontend.service=bar-frontend-service"
       - "traefik.http.services.bar-frontend-service.loadbalancer.server.port=80"
+      - "traefik.http.middlewares.bar-frontend.redirectregex.regex: ^https?://mental-prosvet\.ru"
+      - "traefik.http.middlewares.bar-frontend.redirectregex.replacement: https://calendar.mental-prosvet.ru"
     environment:
       NODE_ENV: production
 

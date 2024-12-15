@@ -9,7 +9,7 @@ function Privacy() {
                 <h1 className="privacy__title privacy__header-title">
                     Политика в отношении обработки персональных данных
                 </h1>
-                <Link to="/sign-in" className="privacy__form-button-back"></Link>
+                <Link to="/" className="privacy__form-button-back"></Link>
             </div>
             <h2 className="privacy__title">
                 1. Общие положения
