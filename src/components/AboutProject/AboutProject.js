@@ -96,24 +96,17 @@ function AboutProject(props) {
                             <img className="about-project__img" src={offline}></img>
                         </li>
                     </ul>
-                    <div className="partners_container">
-                        <p className="about-project__paragraph about-project__paragraph_fund">
-                            Проект создан при поддержке <span className="about-project__paragraph_bold">Федерального государственного бюджетного учреждения «Фонд содействия развитию малых форм предприятий в научно-технической сфере»</span> в рамках программы <span className="about-project__paragraph_bold">«Студенческий стартап»</span> федерального проекта <span className="about-project__paragraph_bold">«Платформа университетского
-                            технологического предпринимательства»</span>.
-                        </p>
-                        <img className="faise-logo" src={logo_faise}></img>
-                    </div>
                     <p className="about-project__paragraph about-project__paragraph-link">
                         Партнеры проекта:
                     </p>
-                    <ul className="about-project__links">
-                        <li className="about-project__link">
-                            <p className="about-project__paragraph link-name">
-                                Фонд содействия развитию малых форм предприятий в научно-технической сфере (Фонд содействия инновациям) :&nbsp;
-                                <a className="link" href="https://fasie.ru/" target="blank">https://fasie.ru</a>
-                            </p>
-                        </li>
-                    </ul>
+                    <div className="partners_container">
+                        <p className="about-project__paragraph about-project__paragraph_fund">
+                            Проект создан при поддержке <span className="about-project__paragraph_bold">Федерального государственного бюджетного учреждения «Фонд содействия развитию малых форм предприятий в научно-технической сфере»</span> в рамках программы <span className="about-project__paragraph_bold">«Студенческий стартап»</span> федерального проекта <span className="about-project__paragraph_bold">«Платформа университетского
+                            технологического предпринимательства»</span>. <br />
+                            <a className="link" href="https://fasie.ru/" target="blank">https://fasie.ru</a>
+                        </p>
+                        <img className="faise-logo" src={logo_faise}></img>
+                    </div>
                 </div>
                 <h2 className="about-project__company">
                     ООО "ПРОСВЕТ ТЕХНОЛОГИИ", ОГРН: 1245200004686, ИНН: 5262394376, КПП: 526201001.
