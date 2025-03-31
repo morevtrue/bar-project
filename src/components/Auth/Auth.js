@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import './Auth.css';
 import { useFormWithValidation } from '../../utils/useForm';
+import logo_faise from '../../images/faise.svg';
 
 function Auth(props) {
   const { values, handleChange, errors, isValid } = useFormWithValidation();
@@ -146,6 +147,13 @@ function Auth(props) {
                   </div>
                 </>
             }
+          </div>
+          <div className="auth__form-partners_container">
+              <p className="partner__text privacy-link">
+                  Проект создан при поддержке <span className="about-project__paragraph_bold">Федерального государственного бюджетного учреждения «Фонд содействия развитию малых форм предприятий в научно-технической сфере»</span> в рамках программы <span className="about-project__paragraph_bold">«Студенческий стартап»</span> федерального проекта <span className="about-project__paragraph_bold">«Платформа университетского
+                  технологического предпринимательства»</span>.
+              </p>
+              <img className="faise" src={logo_faise}></img>
           </div>
         </form>
       </div>

@@ -7,6 +7,7 @@ import group from '../../images/group.jpg';
 import vk from '../../images/vk.png';
 import offline from '../../images/offline.jpg';
 import { Link } from "react-router-dom";
+import logo_faise from '../../images/faise.svg';
 
 function AboutProject(props) {
     return (
@@ -95,11 +96,13 @@ function AboutProject(props) {
                             <img className="about-project__img" src={offline}></img>
                         </li>
                     </ul>
-                    <p className="about-project__paragraph about-project__paragraph_fund">
-                        Работа выполнена при
-                        поддержке гранта <span className="about-project__paragraph_bold">Фонда содействия инновациям</span>, предоставленного в рамках программы <span className="about-project__paragraph_bold">«Студенческий стартап»</span> федерального проекта <span className="about-project__paragraph_bold">«Платформа университетского
-                        технологического предпринимательства»</span>.
-                    </p>
+                    <div className="partners_container">
+                        <p className="about-project__paragraph about-project__paragraph_fund">
+                            Проект создан при поддержке <span className="about-project__paragraph_bold">Федерального государственного бюджетного учреждения «Фонд содействия развитию малых форм предприятий в научно-технической сфере»</span> в рамках программы <span className="about-project__paragraph_bold">«Студенческий стартап»</span> федерального проекта <span className="about-project__paragraph_bold">«Платформа университетского
+                            технологического предпринимательства»</span>.
+                        </p>
+                        <img className="faise-logo" src={logo_faise}></img>
+                    </div>
                     <p className="about-project__paragraph about-project__paragraph-link">
                         Партнеры проекта:
                     </p>
