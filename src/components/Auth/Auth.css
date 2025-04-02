@@ -57,7 +57,7 @@
   font-size: 3.2em;
   font-weight: 400;
   line-height: 1;
-  margin: 0;
+  margin: 20px 0;
   padding: 0;
   text-align: left;
   color: rgba(17, 38, 60, 1);
@@ -175,7 +175,20 @@ input::-webkit-input-placeholder {
   gap: 10px;
 }
 
-.auth__about-project,
+.auth__about-project {
+  margin: 20px 0 0;
+  font-size: 1.6em;
+  font-weight: 400;
+  line-height: 24px;
+  padding: 0;
+  color: rgba(17, 38, 60, 1);
+}
+
+.auth__app-link {
+  text-decoration: none;
+}
+
+.auth__app-link,
 .auth__form-text,
 .auth__form-login,
 .partner__text {
@@ -192,6 +205,7 @@ input::-webkit-input-placeholder {
   line-height: 20px;
 }
 
+.auth__app-link,
 .auth__about-project,
 .auth__form-login {
   font-weight: 500;
@@ -230,6 +244,7 @@ input::-webkit-input-placeholder {
 .faise {
   width: 100%;
   max-width: 150px;
+  margin-bottom: 20px;
 }
 
 @media (max-height: 1027px) {
@@ -267,7 +282,7 @@ input::-webkit-input-placeholder {
   }
 
   .auth__form-content {
-    gap: 5vh;
+    gap: 3vh;
   }
 
   .auth__form-inputs {

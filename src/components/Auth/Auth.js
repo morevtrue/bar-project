@@ -65,6 +65,7 @@ function Auth(props) {
             {
               !props.isLoginAdmin && <Link to="/about-project" className="auth__about-project">Информация о проекте</Link>
             }
+            <a className="auth__app-link" href="https://drive.google.com/file/d/1bOCVRw_7OygpEG5i2KQ04iyTwwC_wulN/view?usp=sharing" target="blank">Скачать приложение для Android</a>
             <h1 className="auth__form-title">{props.helloText}</h1>
             <ul className="auth__form-inputs">
               <li className="auth__form-input-content">
