@@ -142,9 +142,9 @@ function Profile(props) {
     props.onUpdateUser({
       name: valueName,
       gender: valueCurrentGender,
-      phone: valuePhone,
+      phone: valuePhone ? valuePhone : '',
       anotherPhone: valueAnotherPhone,
-      dateOfBirth: valueDate
+      dateOfBirth: valueDate ? valueDate : ''
     })
   }
 
@@ -173,7 +173,7 @@ function Profile(props) {
             selected={valueDate}
             onChange={(date, evt) => {
               setValueDate(date);
-              if (date === '' || date === new Date(currentUser.dateOfBirth) || date === null) {
+              if (date === new Date(currentUser.dateOfBirth) && date !== null) {
                 props.setIsActiveButtonSubmit(true);
               } else {
                 props.setIsActiveButtonSubmit(false);

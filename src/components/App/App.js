@@ -322,7 +322,6 @@ function App(props) {
       .then((res) => {
         actionCreatorLoggedInAdmin(true);
         navigate('/users', { replace: true })
-        console.log(res)
         if (res) {
           setErrUnathorized(false);
           setErrBadRequestProfile(false);
@@ -340,7 +339,6 @@ function App(props) {
 
     console.log(value_loggedIn)
   }
-  console.log(value_loggedIn_admin)
 
   // ОБНОВЛЕНИЕ ДАННЫХ ПРОФИЛЯ
   function handleUpdateUser(profileData) {

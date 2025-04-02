@@ -54,7 +54,6 @@ function WelcomePage() {
 
   const SwiperButtonNext = (evt) => {
     const swiper = useSwiper();
-    console.log(evt)
     if (click !== 3) {
       return <button className="welcome-page__button-next" onClick={() => swiper.slideNext()}>Дальше</button>;
     } else {
